@@ -1,11 +1,11 @@
 class Usuario:
     
-    def __init__(self, nombre, contraseña, codigo, tipo, pinUnicoAdmin):
+    def __init__(self, nombre, contraseña, codigo, tipo):
         self.nombre = nombre
         self.contraseña = contraseña
         self.codigo = codigo
         self.tipo = tipo 
-        self.pinUnicoAdmin = pinUnicoAdmin
+    
     
     def registrarUsuario(self,):
         pass
@@ -19,7 +19,8 @@ class Usuario:
 class Admin(Usuario):
 
     def __init__(self, nombre, contraseña, codigo, tipo, pinUnicoAdmin):
-        super().__init__(nombre, contraseña, codigo, tipo, pinUnicoAdmin)
+        super().__init__(nombre, contraseña, codigo, tipo)
+        self.pinUnicoAdmin = pinUnicoAdmin
     
     def ingresarInstrumentos(self,):
         pass
