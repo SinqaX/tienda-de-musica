@@ -50,8 +50,8 @@ class Admin(Usuario):
 
 class Cliente(Usuario):
 
-    def __init__(self, nombre, contraseña, codigo, tipo, pinUnicoAdmin):
-        super().__init__(nombre, contraseña, codigo, tipo, pinUnicoAdmin)
+    def __init__(self, nombre, contraseña, codigo, tipo):
+        super().__init__(nombre, contraseña, codigo, tipo)
     
     def consultarInstrumentosVenta(self,):
         pass
