@@ -14,3 +14,5 @@ class Tienda:
 
     def consultarStock(self):
         pass
+
+    
