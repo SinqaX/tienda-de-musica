@@ -12,9 +12,8 @@ def mostrar_menu_usuario():
     print("\n------------- Menú Manejo de Usuarios -------------")
     print("1. Agregar Usuario")
     print("2. Consultar Usuario")
-    print("3. Modificar Usuario")
-    print("4. Eliminar Usuario")
-    print("5. Mostrar Usuarios")
+    print("3. Eliminar Usuario")
+    print("4. Mostrar Usuarios")
     print('------------------------------------------------------')
     print("0. Salir")
 
@@ -40,9 +39,8 @@ def mostrar_menu_inventario():
     print("\n------------- Menú Manejo de Inventario -------------")
     print("1. Agregar Instrumento")
     print("2. Consultar Instrumento")
-    print("3. Modificar Instrumento")
-    print("4. Mostrar Instrumentos")
-    print("5. Eliminar Instrumento")
+    print("3. Mostrar Instrumentos")
+    print("4. Eliminar Instrumento")
     print('------------------------------------------------------')
     print("0. Salir")
 
