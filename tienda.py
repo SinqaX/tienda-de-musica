@@ -1,3 +1,4 @@
+from usuario import Usuario
 class Tienda:
 
     def __init__(self):
@@ -8,8 +9,16 @@ class Tienda:
         self.ventasSeparado = []
         self.prestamos = []
     
-    def agregarUsuario(self, usuario):
-        pass
+    def agregarUsuario(self, nombre, cedula):
+        usuarioencontrado = self.encontrarUsuario(cedula)
+        if not usuarioencontrado:
+            usu = Usuario(nombre, cedula)
+            self.usuarios.append(usu)
+
+    def encontrarUsuario(self, cedula):
+        if cedula not in self.usuarios:
+            return True
+        return False
 
     def agregarInstrumento(self, instrumento):
         pass
