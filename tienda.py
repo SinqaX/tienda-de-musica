@@ -1,3 +1,4 @@
+from leer import *
 from usuario import Usuario
 class Tienda:
 
@@ -12,13 +13,53 @@ class Tienda:
     def agregarUsuario(self, nombre, cedula):
         usuarioencontrado = self.encontrarUsuario(cedula)
         if not usuarioencontrado:
+            print("-Usuario nuevo agregado-")
             usu = Usuario(nombre, cedula)
             self.usuarios.append(usu)
 
     def encontrarUsuario(self, cedula):
-        if cedula not in self.usuarios:
-            return True
+        for usuario in self.usuarios:
+            if usuario.cedula==cedula:
+                return True
         return False
+    
+    def consultarUsuario(self,cedula):
+        encontrado=self.encontrarUsuario(cedula)
+        if encontrado:
+            for usuario in self.usuarios:
+                if usuario.cedula==cedula:
+                    print(f"""Nombre: {usuario.nombre}
+                              Cedula: {usuario.cedula}""")
+        return False
+    def consultarUsuarios(self):
+        enumerator=1
+        for usuario in self.usuarios:
+            print(f"""
+                ------N{enumerator}------
+                Nombre: {usuario.nombre}
+                Cedula: {usuario.cedula}""")
+            enumerator+=1
+
+    def eliminarUsuario(self, cedula):
+        usuario_encontrado = self.encontrarUsuario(cedula)
+
+        if usuario_encontrado:
+            self.consultarUsuario(cedula)
+            confirmacion = Leer.string("¿Está seguro de eliminar este usuario? (s/n) -> ")
+
+            if confirmacion.lower() == 's':
+                # Utilizando enumerate para obtener el índice y valor al mismo tiempo
+                for i, usuario in enumerate(self.usuarios):
+                    if usuario.cedula == cedula:
+                        del self.usuarios[i]
+                        print("Usuario eliminado exitosamente.")
+                        return
+
+            print("Eliminación cancelada.")
+        else:
+            print("Usuario no encontrado.")
+
+
 
     def agregarInstrumento(self, instrumento):
         pass
@@ -29,8 +70,6 @@ class Tienda:
     def registrarUsuario(self,):
         pass
 
-    def iniciarSesion(self,):
-        pass
     
     def ingresarInstrumentos(self,):
         pass
@@ -59,4 +98,3 @@ class Tienda:
     def modificarDisponibilidadInstrumento(self,):
         pass
 
-    
