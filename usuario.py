@@ -1,13 +1,14 @@
 class Usuario:
     
-    def __init__(self, nombre, cedula, salvamento):
+    def __init__(self, nombre, cedula):
         self.nombre = nombre
         self.cedula = cedula
         
 
 
+
     
-    
+
     
 
     

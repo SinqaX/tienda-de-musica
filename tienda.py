@@ -1,10 +1,13 @@
+from leer import *
 from usuario import Usuario
 from leer import Leer
-from instrumentos import Instrumento, IntrumentosAlquiler, IntrumentosVenta
+from instrumentos import IntrumentosAlquiler, IntrumentosVenta
 import random
 
 class Tienda:
+
     codigosUtilizados = set()
+
     def __init__(self):
         self.usuarios = []
         self.instrumentosVenta = []
@@ -21,9 +24,46 @@ class Tienda:
             print("el usuario que intenta ingresar ya se encuentra registrado")
 
     def encontrarUsuario(self, cedula):
-        if cedula not in self.usuarios:
-            return True
+        for usuario in self.usuarios:
+            if usuario.cedula==cedula:
+                return True
         return False
+    
+    def consultarUsuario(self,cedula):
+        encontrado=self.encontrarUsuario(cedula)
+        if encontrado:
+            for usuario in self.usuarios:
+                if usuario.cedula==cedula:
+                    print(f"Nombre: {usuario.nombre} \nCedula: {usuario.cedula}\n")
+        return False
+    
+    def consultarUsuarios(self):
+        enumerator=1
+        for usuario in self.usuarios:
+            print(f"""
+                ------N{enumerator}------
+                Nombre: {usuario.nombre}
+                Cedula: {usuario.cedula}""")
+            enumerator+=1
+
+    def eliminarUsuario(self, cedula):
+        usuario_encontrado = self.encontrarUsuario(cedula)
+
+        if usuario_encontrado:
+            self.consultarUsuario(cedula)
+            confirmacion = Leer.string("¿Está seguro de eliminar este usuario? (Si/No) -> ").lower()
+
+            if confirmacion == 'si':
+                # Utilizando enumerate para obtener el índice y valor al mismo tiempo
+                for i, usuario in enumerate(self.usuarios):
+                    if usuario.cedula == cedula:
+                        del self.usuarios[i]
+                        print("Usuario eliminado exitosamente.")
+                        return
+            else:
+                print("Eliminación cancelada.")
+        else:
+            print("Usuario no encontrado.")
 
     def generarCodigoInstrumento(self,tipo):
         while True:
@@ -39,7 +79,6 @@ class Tienda:
                 return codigo
     
     def agregarInstrumento(self, instrumento, cantidad):
-
         opcion = Leer.int("ingrese su opcion : (1) para instrumentos de ventas, (2) para intrumentos de alquiler -> ")
         if opcion == 1:
             codigo = self.generarCodigoInstrumento(opcion)
@@ -60,9 +99,7 @@ class Tienda:
             else:
                 print("el instrumento que intenta ingresar ya se encuentra registrado ")
         else: print("la opcion ingresada no es valida ")
-
-
-        
+  
     def encontrarIntrumentoVenta(self, codigo):
         for instrumento in self.instrumentosVenta:
             if instrumento.codigo == codigo:
@@ -87,7 +124,6 @@ class Tienda:
             for instrumento in self.instrumentosVenta:
                 print(instrumento)
 
-
     def consultarInstrumentosAlquiler(self):
         if len(self.instrumentosAlquiler) == 0:
             print("no hay instrumentos agregados")
@@ -96,7 +132,6 @@ class Tienda:
             for instrumento in self.instrumentosAlquiler:
                 print(instrumento)
     
-
     def eliminarInstrumento(self, codigo):
         try:
             codigo = int(codigo)
@@ -122,18 +157,32 @@ class Tienda:
 
 
 
-    def generarVenta(self,):
-        pass
+    # def generarVenta(self,):
+    #     pass
 
-    def generarPrestamo(self,):
-        pass
+    # def generarPrestamo(self,):
+    #     pass
 
-    def cambioPorGarantia(self,):
-        pass
+    # def cambioPorGarantia(self,):
+    #     pass
 
-    def devolucionInstrumento(self,):
-        pass
+    # def devolucionInstrumento(self,):
+    #     pass
 
-    def modificarDisponibilidadInstrumento(self,):
-        pass
+    # def modificarDisponibilidadInstrumento(self,):
+    #     pass
 
+# tienda = Tienda()
+# tienda = Tienda()
+# tienda.agregarUsuario("webitas0", "113852")
+# tienda.agregarUsuario("John Doe", "123456789")
+# tienda.consultarUsuarios()
+# c = input("cedula del usuario a eliminar")
+# tienda.eliminarUsuario(c)
+# tienda.consultarUsuarios()  # Verificar que el usuario fue eliminado
+# tienda.agregarInstrumento("guitarra", 5)
+# tienda.agregarInstrumento("piano", 3)
+# tienda.consultarStock()
+# codigo = input("ingrese el codigo a eliminar ")
+# tienda.eliminarInstrumento(codigo)
+# tienda.consultarStock()
