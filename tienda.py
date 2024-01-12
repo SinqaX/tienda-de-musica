@@ -177,17 +177,17 @@ class Tienda:
     # def modificarDisponibilidadInstrumento(self,):
     #     pass
 
-# tienda = Tienda()
-# tienda = Tienda()
-# tienda.agregarUsuario("webitas0", "113852")
-# tienda.agregarUsuario("John Doe", "123456789")
-# tienda.consultarUsuarios()
-# c = input("cedula del usuario a eliminar")
-# tienda.eliminarUsuario(c)
-# tienda.consultarUsuarios()  # Verificar que el usuario fue eliminado
-# tienda.agregarInstrumento("guitarra", 5)
-# tienda.agregarInstrumento("piano", 3)
-# tienda.consultarStock()
-# codigo = input("ingrese el codigo a eliminar ")
-# tienda.eliminarInstrumento(codigo)
-# tienda.consultarStock()
+tienda = Tienda()
+tienda = Tienda()
+tienda.agregarUsuario("webitas0", "113852")
+tienda.agregarUsuario("John Doe", "123456789")
+tienda.consultarUsuarios()
+c = input("cedula del usuario a eliminar")
+tienda.eliminarUsuario(c)
+tienda.consultarUsuarios()  # Verificar que el usuario fue eliminado
+tienda.agregarInstrumento("guitarra", 5)
+tienda.agregarInstrumento("piano", 3)
+tienda.consultarStock()
+codigo = input("ingrese el codigo a eliminar ")
+tienda.eliminarInstrumento(codigo)
+tienda.consultarStock()
