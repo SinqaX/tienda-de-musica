@@ -16,13 +16,18 @@ class Tienda:
         self.ventasSeparado = []
         self.prestamos = []
     
-    def agregarUsuario(self, nombre, cedula):
-        usuarioencontrado = self.encontrarUsuario(cedula)
-        if not usuarioencontrado:
-            self.usuarios.append(Usuario(nombre, cedula))
-        else:
-            print("el usuario que intenta ingresar ya se encuentra registrado")
-
+    def agregarUsuario(self):
+        try:
+            nombre = Leer.string("ingrese su nombre -> ")
+            cedula = Leer.int("ingrese su numero de cedula sin puntos ni comas -> ")
+            usuarioencontrado = self.encontrarUsuario(cedula)
+            if not usuarioencontrado:
+                self.usuarios.append(Usuario(nombre, cedula))
+            else:
+                print("el usuario que intenta ingresar ya se encuentra registrado")
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
+            
     def encontrarUsuario(self, cedula):
         for usuario in self.usuarios:
             if usuario.cedula==cedula:
