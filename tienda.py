@@ -34,9 +34,8 @@ class Tienda:
                 return True
         return False
     
-    def consultarUsuario(self):
+    def consultarUsuario(self, cedula):
         try:
-            cedula = Leer.int("ingrese su numero de cedula sin puntos ni comas -> ")
             encontrado=self.encontrarUsuario(cedula)
             if encontrado:
                 for usuario in self.usuarios:
@@ -45,6 +44,7 @@ class Tienda:
             return False
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
+
     def consultarUsuarios(self):
         enumerator=1
         for usuario in self.usuarios:
@@ -192,15 +192,13 @@ class Tienda:
 
 tienda = Tienda()
 tienda = Tienda()
-tienda.agregarUsuario("webitas0", "113852")
-tienda.agregarUsuario("John Doe", "123456789")
+tienda.agregarUsuario()
+tienda.agregarUsuario()
 tienda.consultarUsuarios()
-c = input("cedula del usuario a eliminar")
-tienda.eliminarUsuario(c)
+tienda.eliminarUsuario()
 tienda.consultarUsuarios()  # Verificar que el usuario fue eliminado
-tienda.agregarInstrumento("guitarra", 5)
-tienda.agregarInstrumento("piano", 3)
+tienda.agregarInstrumento()
+tienda.agregarInstrumento()
 tienda.consultarStock()
-codigo = input("ingrese el codigo a eliminar ")
-tienda.eliminarInstrumento(codigo)
+tienda.eliminarInstrumento()
 tienda.consultarStock()
