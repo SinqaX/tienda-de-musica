@@ -27,7 +27,7 @@ class Tienda:
                 print("el usuario que intenta ingresar ya se encuentra registrado")
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
-            
+
     def encontrarUsuario(self, cedula):
         for usuario in self.usuarios:
             if usuario.cedula==cedula:
@@ -83,28 +83,34 @@ class Tienda:
                 self.codigosUtilizados.add(codigo)
                 return codigo
     
-    def agregarInstrumento(self, instrumento, cantidad):
-        opcion = Leer.int("ingrese su opcion : (1) para instrumentos de ventas, (2) para intrumentos de alquiler -> ")
-        if opcion == 1:
-            codigo = self.generarCodigoInstrumento(opcion)
-            encontrarinstrumento = self.encontrarIntrumentoVenta(codigo)
-            if not encontrarinstrumento:
-                valor = Leer.int("ingrese el costo del instrumento -> ")
-                self.instrumentosVenta.append(IntrumentosVenta(instrumento, codigo, cantidad, valor))
-                print("\ninstrumento agregado exitosamente")
+    def agregarInstrumento(self):
+        try:
+            instrumento = Leer.string("ingrese el nombre del instrumento -> ")
+            cantidad = Leer.int("ingrese la cantidad de instrumentos que quiere agregar -> ")
+            opcion = Leer.int("ingrese su opcion : (1) para instrumentos de ventas, (2) para intrumentos de alquiler -> ")
+            if opcion == 1:
+                codigo = self.generarCodigoInstrumento(opcion)
+                encontrarinstrumento = self.encontrarIntrumentoVenta(codigo)
+                if not encontrarinstrumento:
+                    valor = Leer.int("ingrese el costo del instrumento -> ")
+                    self.instrumentosVenta.append(IntrumentosVenta(instrumento, codigo, cantidad, valor))
+                    print("\ninstrumento agregado exitosamente")
+                else:
+                    print("el instrumento que intenta ingresar ya se encuentra registrado ")
+            elif opcion == 2:
+                codigo = self.generarCodigoInstrumento(opcion)
+                encontrarinstrumento = self.encontrarIntrumentoAlquiler(codigo)
+                if not encontrarinstrumento:
+                    valor = Leer.int("ingrese el valor del alquiler del instrumento -> ")
+                    self.instrumentosAlquiler.append(IntrumentosAlquiler(instrumento, codigo, cantidad, valor))
+                    print("\ninstrumento agregado exitosamente")
+                else:
+                    print("el instrumento que intenta ingresar ya se encuentra registrado ")
             else:
-                print("el instrumento que intenta ingresar ya se encuentra registrado ")
-        elif opcion == 2:
-            codigo = self.generarCodigoInstrumento(opcion)
-            encontrarinstrumento = self.encontrarIntrumentoAlquiler(codigo)
-            if not encontrarinstrumento:
-                valor = Leer.int("ingrese el valor del alquiler del instrumento -> ")
-                self.instrumentosAlquiler.append(IntrumentosAlquiler(instrumento, codigo, cantidad, valor))
-                print("\ninstrumento agregado exitosamente")
-            else:
-                print("el instrumento que intenta ingresar ya se encuentra registrado ")
-        else: print("la opcion ingresada no es valida ")
-  
+                raise ValueError("la opcion que ingresaste no es valida -> ")
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo -> ")
+
     def encontrarIntrumentoVenta(self, codigo):
         for instrumento in self.instrumentosVenta:
             if instrumento.codigo == codigo:
@@ -137,9 +143,9 @@ class Tienda:
             for instrumento in self.instrumentosAlquiler:
                 print(instrumento)
     
-    def eliminarInstrumento(self, codigo):
+    def eliminarInstrumento(self):
         try:
-            codigo = int(codigo)
+            codigo = Leer.int("ingrese el codigo del instrumento que desea eliminar -> ")
         except ValueError:
             print("Error: El código debe ser un número entero.")
             return
