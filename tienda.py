@@ -34,14 +34,17 @@ class Tienda:
                 return True
         return False
     
-    def consultarUsuario(self,cedula):
-        encontrado=self.encontrarUsuario(cedula)
-        if encontrado:
-            for usuario in self.usuarios:
-                if usuario.cedula==cedula:
-                    print(f"Nombre: {usuario.nombre} \nCedula: {usuario.cedula}\n")
-        return False
-    
+    def consultarUsuario(self):
+        try:
+            cedula = Leer.int("ingrese su numero de cedula sin puntos ni comas -> ")
+            encontrado=self.encontrarUsuario(cedula)
+            if encontrado:
+                for usuario in self.usuarios:
+                    if usuario.cedula==cedula:
+                        print(f"Nombre: {usuario.nombre} \nCedula: {usuario.cedula}\n")
+            return False
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
     def consultarUsuarios(self):
         enumerator=1
         for usuario in self.usuarios:
@@ -51,25 +54,29 @@ class Tienda:
                 Cedula: {usuario.cedula}""")
             enumerator+=1
 
-    def eliminarUsuario(self, cedula):
-        usuario_encontrado = self.encontrarUsuario(cedula)
+    def eliminarUsuario(self):
+        try:
+            cedula = Leer.int("ingrese su numero de cedula sin puntos ni comas -> ")
+            usuario_encontrado = self.encontrarUsuario(cedula)
 
-        if usuario_encontrado:
-            self.consultarUsuario(cedula)
-            confirmacion = Leer.string("¿Está seguro de eliminar este usuario? (Si/No) -> ").lower()
+            if usuario_encontrado:
+                self.consultarUsuario(cedula)
+                confirmacion = Leer.string("¿Está seguro de eliminar este usuario? (Si/No) -> ").lower()
 
-            if confirmacion == 'si':
-                # Utilizando enumerate para obtener el índice y valor al mismo tiempo
-                for i, usuario in enumerate(self.usuarios):
-                    if usuario.cedula == cedula:
-                        del self.usuarios[i]
-                        print("Usuario eliminado exitosamente.")
-                        return
+                if confirmacion == 'si':
+                    # Utilizando enumerate para obtener el índice y valor al mismo tiempo
+                    for i, usuario in enumerate(self.usuarios):
+                        if usuario.cedula == cedula:
+                            del self.usuarios[i]
+                            print("Usuario eliminado exitosamente.")
+                            return
+                else:
+                    print("Eliminación cancelada.")
             else:
-                print("Eliminación cancelada.")
-        else:
-            print("Usuario no encontrado.")
-
+                print("Usuario no encontrado.")
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
+            
     def generarCodigoInstrumento(self,tipo):
         while True:
             if tipo == 1:
