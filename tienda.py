@@ -3,7 +3,9 @@ from usuario import Usuario
 from leer import Leer
 from instrumentos import IntrumentosAlquiler, IntrumentosVenta
 import random
-
+from datetime import datetime
+import os
+from ventas import Venta
 class Tienda:
 
     codigosUtilizados = set()
@@ -157,8 +159,59 @@ class Tienda:
 
 
 
-    # def generarVenta(self,):
-    #     pass
+    def generarVenta(self,):
+        totalPagar = 0 
+        ced = Leer.string('Cedula del cliente-> ')
+        fechHorActual = datetime.now()
+        fech = fechHorActual.strftime("%Y-%m-%d")
+        opcion = Leer.int('Ingrese la opcion: (1)Venta de contado (2)Venta separado ')
+        if opcion==1:
+            productos = []
+            while True:
+                self.consultarInstrumentosVenta()
+                codigo = Leer.string('Ingrese el codigo del instrumento-> ')
+                instrumento = self.encontrarIntrumentoVenta(codigo)
+                if instrumento==None:
+                    print('El instrumento no se ha encontrado...')
+                    os.system('pause')
+                else:
+                    if instrumento.cantidad<0:
+                        print('No hay mas unidades de este instrumento...')
+                        os.system('pause')
+                        continue
+                    else:
+                        i=0
+                        while i<len(self.instrumentosVenta):
+                            if codigo==self.instrumentosVenta[i].codigo:
+                                self.instrumentosVenta[i].codigo -= 1
+                                totalPagar += self.instrumentosVenta[i].valorIntrumento
+                                print('Venta satisfactoria ...')
+                                productos.append(self.instrumentosVenta[i])
+                                break
+                            i+=1
+                        a = Leer.string('Desea ingresar un nuevo producto? (s/n) -> ')
+                        if a.lower()=='s':
+                            continue
+                        elif a.lower()=='n':
+                            break
+                        else:
+                            print('Opcion no valida...')
+                            os.system('pause')
+            venta = Venta(ced,fech,totalPagar)
+            venta.productos=productos 
+        elif opcion==2:
+             pass
+                             
+                                
+                        
+                            
+                    
+
+            
+            
+            
+            
+
 
     # def generarPrestamo(self,):
     #     pass
