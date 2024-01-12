@@ -12,8 +12,9 @@ class Venta:
 
 class VentaSeparado(Venta):
 
-    def __init__(self, nombreCliente, fecha, cantidad, totalPagar):
-        super().__init__(nombreCliente, fecha, cantidad, totalPagar)
+    def __init__(self, nombreCliente, fecha, totalPagar, abono):
+        super().__init__(nombreCliente, fecha, totalPagar, abono)
         self.abono = 0
+    
 
 

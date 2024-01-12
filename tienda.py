@@ -6,6 +6,7 @@ import random
 from datetime import datetime
 import os
 from ventas import Venta
+from alquiler import Alquiler
 class Tienda:
 
     codigosUtilizados = set()
@@ -33,8 +34,8 @@ class Tienda:
     def encontrarUsuario(self, cedula):
         for usuario in self.usuarios:
             if usuario.cedula==cedula:
-                return True
-        return False
+                return usuario
+        return None
     
     def consultarUsuario(self, cedula):
         try:
@@ -175,6 +176,26 @@ class Tienda:
         else:
             print("El instrumento no se encuentra en la lista")
 
+    def registrarAlquiler(self):
+        self.consultarInstrumentosAlquiler()
+        try:
+            codigo = Leer.int("ingrese el codigo del instrumento que se va alquilar")
+            cedula = Leer.int("ingrese la cedula del usuario que quiere alquilar el instrumento")
+            instrumento = self.encontrarIntrumentoAlquiler(codigo)
+            usuario = self.encontrarUsuario(cedula)
+            if instrumento and usuario:
+                if instrumento.disponible:
+                    tiempo = Leer.int("ingrese el tiempo que quiere alquilar el instrumento (en dias) -> ")
+                    alquiler = Alquiler(usuario.nombre, cedula, tiempo, instrumento.nombre, instrumento.valorAlquiler*tiempo)
+                    self.prestamos.append(alquiler)
+                    instrumento.disponible = False
+                    print(f"alquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias. ")
+                else:
+                    print("El instrumento no está disponible para ser alquilado")
+            else:
+                print("instrumento o usuario no encontrados.")   
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
 
 
     def generarVenta(self,):
@@ -235,7 +256,7 @@ class Tienda:
     #     pass
 
 # tienda = Tienda()
-# tienda = Tienda()
+
 # tienda.agregarUsuario()
 # tienda.agregarUsuario()
 # tienda.mostrarUsuarios
@@ -249,62 +270,40 @@ class Tienda:
         
 
     #MODIFICACION FUNCIONES ALQUILER 
-    
-    #GENERAR ALQUILER
-    
-    def buscar_recurso(self, codigo_recurso):
-        for recurso in self.recursos:
-            if recurso.codigo == codigo_recurso:
-                return recurso
-        return None
 
-    def registrar_prestamo(self, codigo_recurso, codigo_usuario):
-        recurso = self.buscar_recurso(codigo_recurso)
-        usuario = self.buscar_usuario(codigo_usuario)
-        if recurso and usuario:
-            if recurso.disponible and self.puede_prestar(usuario):
-                prestamo = Prestamo(recurso, usuario)
-                self.prestamos.append(prestamo)
-                recurso.disponible = False
-                print(f"Préstamo exitoso. {usuario.tipo} {usuario.nombre} ha prestado {recurso.nombre}.")
-            else:
-                print("El recurso no está disponible para préstamo o el usuario no puede realizar más préstamos.")
-        else:
-            print("Recurso o usuario no encontrados.")    
-
-
-    #CONSULTAR ALQUILER
+    # #CONSULTAR ALQUILER
         
-    def consultar_recursos_prestados_usuario(self, codigo_usuario):
-        usuario = self.buscar_usuario(codigo_usuario)
-        if usuario:
-            prestamos_usuario = [p.recurso.nombre for p in self.prestamos if p.usuario == usuario]
-            if prestamos_usuario:
-                print(f"{usuario.tipo} {usuario.nombre} tiene los siguientes recursos prestados:")
-                for recurso_nombre in prestamos_usuario:
-                    print(f"- {recurso_nombre}")
-            else:
-                print(f"{usuario.tipo} {usuario.nombre} no tiene recursos prestados actualmente.")
-        else:
-            print("Usuario no encontrado.")
+    # def consultar_recursos_prestados_usuario(self, codigo_usuario):
+    #     usuario = self.buscar_usuario(codigo_usuario)
+    #     if usuario:
+    #         prestamos_usuario = [p.recurso.nombre for p in self.prestamos if p.usuario == usuario]
+    #         if prestamos_usuario:
+    #             print(f"{usuario.tipo} {usuario.nombre} tiene los siguientes recursos prestados:")
+    #             for recurso_nombre in prestamos_usuario:
+    #                 print(f"- {recurso_nombre}")
+    #         else:
+    #             print(f"{usuario.tipo} {usuario.nombre} no tiene recursos prestados actualmente.")
+    #     else:
+    #         print("Usuario no encontrado.")
 
-    #DEVOLVER ALQUILER
+    # #DEVOLVER ALQUILER
         
-    def devolver_recurso(self, codigo_recurso):
-        recurso = self.buscar_recurso(codigo_recurso)
-        if recurso:
-            prestamo = next((p for p in self.prestamos if p.recurso == recurso), None)
-            if prestamo:
-                prestamo_usuario_nombre = f"{prestamo.usuario.tipo} {prestamo.usuario.nombre}"
-                self.prestamos.remove(prestamo)
-                recurso.disponible = True
-                print(f"Devolución exitosa. {prestamo_usuario_nombre} ha devuelto {recurso.nombre}.")
-            else:
-                print(f"El recurso {recurso.nombre} no está prestado actualmente.")
-        else:
-            print("Recurso no encontrado.")
+    # def devolver_recurso(self, codigo_recurso):
+    #     recurso = self.buscar_recurso(codigo_recurso)
+    #     if recurso:
+    #         prestamo = next((p for p in self.prestamos if p.recurso == recurso), None)
+    #         if prestamo:
+    #             prestamo_usuario_nombre = f"{prestamo.usuario.tipo} {prestamo.usuario.nombre}"
+    #             self.prestamos.remove(prestamo)
+    #             recurso.disponible = True
+    #             print(f"Devolución exitosa. {prestamo_usuario_nombre} ha devuelto {recurso.nombre}.")
+    #         else:
+    #             print(f"El recurso {recurso.nombre} no está prestado actualmente.")
+    #     else:
+    #         print("Recurso no encontrado.")
 
-    #MOSTRAR ALQUILERES
+
+            
 
 
 
