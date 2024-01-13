@@ -7,6 +7,7 @@ from datetime import datetime
 import os
 from ventas import Venta
 from alquiler import Alquiler
+import pickle
 class Tienda:
 
     codigosUtilizados = set()
@@ -17,7 +18,6 @@ class Tienda:
         self.instrumentosAlquiler = []
         self.ventas = []
         self.ventasSeparado = []
-        self.prestamos = []
     
     def agregarUsuario(self):
         try:
@@ -176,27 +176,85 @@ class Tienda:
         else:
             print("El instrumento no se encuentra en la lista")
 
-    def registrarAlquiler(self):
+    def generarAlquiler(self):
         self.consultarInstrumentosAlquiler()
         try:
-            codigo = Leer.int("ingrese el codigo del instrumento que se va alquilar")
-            cedula = Leer.int("ingrese la cedula del usuario que quiere alquilar el instrumento")
+            codigo = Leer.int("ingrese el codigo del instrumento que se va alquilar -> ")
+            cedula = Leer.int("ingrese la cedula del usuario que quiere alquilar el instrumento -> ")
             instrumento = self.encontrarIntrumentoAlquiler(codigo)
             usuario = self.encontrarUsuario(cedula)
             if instrumento and usuario:
                 if instrumento.disponible:
                     tiempo = Leer.int("ingrese el tiempo que quiere alquilar el instrumento (en dias) -> ")
-                    alquiler = Alquiler(usuario.nombre, cedula, tiempo, instrumento.nombre, instrumento.valorAlquiler*tiempo)
-                    self.prestamos.append(alquiler)
-                    instrumento.disponible = False
-                    print(f"alquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias. ")
+                    salvamento = Leer.string("para generar su alquiler debe dejar su cedula como salvamento de el alquiler, acepta (Si/No) -> ").lower()
+                    if salvamento == "si":
+                        alquiler = Alquiler(usuario.nombre, cedula, tiempo, instrumento.nombre, instrumento.valorAlquiler*tiempo)  
+                        alquiler.salvamento = True
+                        usuario.prestamos.append(alquiler)
+                        print(f"alquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias con un costo de ${instrumento.valorAlquiler*tiempo} ")
+                    elif salvamento == "no":
+                        print("lo sentimos pero para poder hacer el alquiler del prestamo es obligatorio dejar el salvamento")
+                    else:
+                        print("la opcion que ingresaste no es valida")
                 else:
                     print("El instrumento no está disponible para ser alquilado")
             else:
                 print("instrumento o usuario no encontrados.")   
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
+    
+    def prestamosUsuario(self, cedula):
+        usuario = self.encontrarUsuario(cedula)
+        if usuario:
+            for alquileres in usuario.prestamos:
+                print(alquileres)
+        else:
+            print("el usuario no se encuentra registrado ")
 
+        
+    def consultarPrestamosUsuario(self):
+        try:
+            cedula = Leer.int("ingrese la cedula del usuario que quiere consultar por sus prestamos -> ")
+            encontrado = self.encontrarUsuario(cedula)
+            if encontrado:
+                if len(encontrado.prestamos) > 0:
+                    self.prestamosUsuario(cedula)
+                else:
+                    print("el usuario no tiene prestamos pendientes por el momento ")
+            else:
+                print("el usuario no se encuentra registrado")
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
+
+    def guardarDatos(self):
+        try:
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            with open(nombre_archivo, 'wb') as archivo:
+                datos_tienda = {
+                    'usuarios': self.usuarios,
+                    'instrumentosVenta': self.instrumentosVenta,
+                    'instrumentosAlquiler': self.instrumentosAlquiler,
+                    'ventas': self.ventas,
+                    'ventasSeparado': self.ventasSeparado
+                }
+                pickle.dump(datos_tienda, archivo)
+            print(f"Datos guardados exitosamente en {nombre_archivo}")
+        except Exception as e:
+            print(f"Error al guardar los datos: {e}")
+
+    def cargarDatos(self):
+        try:
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            with open(nombre_archivo, 'rb') as archivo:
+                datos_tienda = pickle.load(archivo)
+                self.usuarios = datos_tienda['usuarios']
+                self.instrumentosVenta = datos_tienda['instrumentosVenta']
+                self.instrumentosAlquiler = datos_tienda['instrumentosAlquiler']
+                self.ventas = datos_tienda['ventas']
+                self.ventasSeparado = datos_tienda['ventasSeparado']
+            print(f"Datos cargados exitosamente desde {nombre_archivo}")
+        except Exception as e:
+            print(f"Error al cargar los datos: {e}")
 
     def generarVenta(self,):
         totalPagar = 0 
@@ -256,37 +314,29 @@ class Tienda:
     #     pass
 
 # tienda = Tienda()
-
+# tienda.cargarDatos()
 # tienda.agregarUsuario()
-# tienda.agregarUsuario()
+# # tienda.agregarUsuario()
 # tienda.mostrarUsuarios
-# tienda.eliminarUsuario()
-# tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
+# # tienda.eliminarUsuario()
+# # tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
 # tienda.agregarInstrumento()
 # tienda.agregarInstrumento()
 # tienda.consultarStock()
-# tienda.eliminarInstrumento()
-# tienda.consultarStock()
-        
+# tienda.guardarDatos()
+# # tienda.eliminarInstrumento()
+# # tienda.consultarStock()
+# tienda.generarAlquiler()
+# tienda.consultarPrestamosUsuario()
+# tienda.generarVenta()
 
     #MODIFICACION FUNCIONES ALQUILER 
 
     # #CONSULTAR ALQUILER
         
-    # def consultar_recursos_prestados_usuario(self, codigo_usuario):
-    #     usuario = self.buscar_usuario(codigo_usuario)
-    #     if usuario:
-    #         prestamos_usuario = [p.recurso.nombre for p in self.prestamos if p.usuario == usuario]
-    #         if prestamos_usuario:
-    #             print(f"{usuario.tipo} {usuario.nombre} tiene los siguientes recursos prestados:")
-    #             for recurso_nombre in prestamos_usuario:
-    #                 print(f"- {recurso_nombre}")
-    #         else:
-    #             print(f"{usuario.tipo} {usuario.nombre} no tiene recursos prestados actualmente.")
-    #     else:
-    #         print("Usuario no encontrado.")
+    
 
-    # #DEVOLVER ALQUILER
+    #DEVOLVER ALQUILER
         
     # def devolver_recurso(self, codigo_recurso):
     #     recurso = self.buscar_recurso(codigo_recurso)

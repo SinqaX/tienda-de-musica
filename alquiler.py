@@ -8,8 +8,8 @@ class Alquiler:
         self.totalPagar = totalPagar
         self.salvamento = False
 
-    def generarFacturaPrestamo(self,):
-        pass
+    def __str__(self):
+        return f"Nombre del usuario: {self.nombreUsuario} \nCedula del usuario: {self.cedulaUsuario} \nTiempo de alquiler: {self.tiempoAlquiler} \nNombre del instrumento: {self.nombreInstrumento} \nTOTAL A PAGAR: {self.totalPagar} \nSalvamento: {self.salvamento}\n"
 
 
 
