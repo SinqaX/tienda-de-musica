@@ -315,19 +315,19 @@ class Tienda:
     # def modificarDisponibilidadInstrumento(self,):
     #     pass
 
-# tienda = Tienda()
-# tienda.cargarDatos()
+tienda = Tienda()
+tienda.cargarDatos()
 # tienda.agregarUsuario()
-# # tienda.agregarUsuario()
-# tienda.mostrarUsuarios
-# # tienda.eliminarUsuario()
-# # tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
+# tienda.agregarUsuario()
+tienda.mostrarUsuarios()
+# tienda.eliminarUsuario()
+# tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
 # tienda.agregarInstrumento()
 # tienda.agregarInstrumento()
+tienda.consultarStock()
+tienda.guardarDatos()
+# tienda.eliminarInstrumento()
 # tienda.consultarStock()
-# tienda.guardarDatos()
-# # tienda.eliminarInstrumento()
-# # tienda.consultarStock()
 # tienda.generarAlquiler()
 # tienda.consultarPrestamosUsuario()
 # tienda.generarVenta()
