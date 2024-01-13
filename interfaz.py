@@ -1,21 +1,97 @@
+import os
+from tienda import *
 #documento donde van a ir los menus y algunas funciones
-def MenuGeneral():
-    print("\n------------- Menú Principal -------------")
-    print("1. Manejo de Usuarios")
-    print("2. Manejo de Ventas")
-    print("3. Manejo de Alquiler")
-    print("4. Manejo de Inventario")
-    print('------------------------------------------------------')
-    print("0. Salir")
+if __name__=="__main__":
+    main()
+    
+def main():
+    while True:
+        try:
+            os.system("cls")
+            print("\n------------- Menú Principal -------------")
+            print("1. Manejo de Usuarios")
+            print("2. Manejo de Ventas")
+            print("3. Manejo de Alquiler")
+            print("4. Manejo de Inventario")
+            print('------------------------------------------------------')
+            print("0. Salir")
+            opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
+            match opcion:
+                case 1:
+                    os.system("cls")
+                    mostrar_menu_usuario()
+                    os.system("pause")
+                case 2:
+                    os.system("cls")
+                    mostrar_menu_ventas()
+                    os.system("pause")
+
+                case 3:
+                    os.system("cls")
+                    mostrar_menu_alquiler()
+                    os.system("pause")
+
+                case 4:
+                    os.system("cls")
+                    mostrar_menu_inventario()
+                    os.system("pause")
+
+                case 0:
+                    tienda.guardarDatos()
+                    print("Saliendo del programa...")
+                    
+                    break
+
+                case _:
+                    print("Opción no válida. Por favor, seleccione una opción válida.")
+                    os.system("pause")
+                    main()
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
 
 def mostrar_menu_usuario():
-    print("\n------------- Menú Manejo de Usuarios -------------")
-    print("1. Agregar Usuario")
-    print("2. Consultar Usuario")
-    print("3. Eliminar Usuario")
-    print("4. Mostrar Usuarios")
-    print('------------------------------------------------------')
-    print("0. Salir")
+    while True:
+        try:
+            os.system("cls")
+            print("\n------------- Menú Manejo de Usuarios -------------")
+            print("1. Agregar Usuario")
+            print("2. Consultar Usuario")
+            print("3. Eliminar Usuario")
+            print("4. Mostrar Usuarios")
+            print('------------------------------------------------------')
+            print("0. Volver al menú principal")
+            opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
+            match opcion:
+                case 1:
+                    os.system("cls")
+                    tienda.agregarUsuario()
+                    os.system("pause")
+                case 2:
+                    os.system("cls")
+                    tienda.consultarUsuario()
+                    os.system("pause")
+
+                case 3:
+                    os.system("cls")
+                    tienda.eliminarUsuario()
+                    os.system("pause")
+
+                case 4:
+                    os.system("cls")
+                    tienda.mostrarUsuarios()
+                    os.system("pause")
+
+                case 0:
+                    print("Volviendo al menú principal...")
+                    break
+
+                case _:
+                    print("Opción no válida. Por favor, seleccione una opción válida.")
+                    os.system("pause")
+                    mostrar_menu_usuario()
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
+
 
 def mostrar_menu_venta():
     print("\n------------- Menú Manejo de Ventas -------------")
