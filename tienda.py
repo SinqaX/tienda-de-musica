@@ -191,18 +191,22 @@ class Tienda:
             usuario = self.encontrarUsuario(cedula)
             if instrumento and usuario:
                 if instrumento.disponible:
-                    tiempo = Leer.int("ingrese el tiempo que quiere alquilar el instrumento (en dias) -> ")
-                    salvamento = Leer.string("para generar su alquiler debe dejar su cedula como salvamento de el alquiler, acepta (Si/No) -> ").lower()
-                    if salvamento == "si":
-                        alquiler = Alquiler(usuario.nombre, cedula, tiempo, instrumento.nombre, instrumento.valorAlquiler*tiempo)  
-                        alquiler.salvamento = True
-                        usuario.prestamos.append(alquiler)
-                        instrumento.cantidad -=1
-                        print(f"\nalquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias con un costo de ${instrumento.valorAlquiler*tiempo} ")
-                    elif salvamento == "no":
-                        print("lo sentimos pero para poder hacer el alquiler del prestamo es obligatorio dejar el salvamento")
+                    if instrumento.cantidad > 0:
+                        tiempo = Leer.int("ingrese el tiempo que quiere alquilar el instrumento (en dias) -> ")
+                        salvamento = Leer.string("para generar su alquiler debe dejar su cedula como salvamento de el alquiler, acepta (Si/No) -> ").lower()
+                        if salvamento == "si":
+                            
+                                alquiler = Alquiler(usuario.nombre, cedula, tiempo, instrumento.nombre, instrumento.valorAlquiler*tiempo)  
+                                alquiler.salvamento = True
+                                usuario.prestamos.append(alquiler)
+                                instrumento.cantidad -=1
+                                print(f"\nalquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias con un costo de ${instrumento.valorAlquiler*tiempo} ")
+                        elif salvamento == "no":
+                            print("lo sentimos pero para poder hacer el alquiler del prestamo es obligatorio dejar el salvamento")
+                        else:
+                            print("la opcion que ingresaste no es valida")
                     else:
-                        print("la opcion que ingresaste no es valida")
+                        print("ya no hay disponibilidad de el instrumento por el momento ")
                 else:
                     print("El instrumento no está disponible para ser alquilado")
             else:
@@ -366,9 +370,10 @@ tienda.mostrarUsuarios()
 # tienda.agregarInstrumento()
 # tienda.consultarStock()
 # tienda.eliminarInstrumento()
-# tienda.consultarStock()
-# tienda.generarAlquiler()
-# tienda.generarAlquiler()
+tienda.consultarStock()
+tienda.generarAlquiler()
+tienda.generarAlquiler()
+tienda.generarAlquiler()
 # tienda.guardarDatos()
 tienda.consultarPrestamosUsuario()
 tienda.devolucionAlquiler()
