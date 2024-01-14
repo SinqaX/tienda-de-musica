@@ -185,23 +185,58 @@ class Tienda:
             usuario = self.encontrarUsuario(cedula)
             if instrumento and usuario:
                 if instrumento.disponible:
-                    tiempo = Leer.int("ingrese el tiempo que quiere alquilar el instrumento (en dias) -> ")
-                    salvamento = Leer.string("para generar su alquiler debe dejar su cedula como salvamento de el alquiler, acepta (Si/No) -> ").lower()
-                    if salvamento == "si":
-                        alquiler = Alquiler(usuario.nombre, cedula, tiempo, instrumento.nombre, instrumento.valorAlquiler*tiempo)  
-                        alquiler.salvamento = True
-                        usuario.prestamos.append(alquiler)
-                        print(f"alquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias con un costo de ${instrumento.valorAlquiler*tiempo} ")
-                    elif salvamento == "no":
-                        print("lo sentimos pero para poder hacer el alquiler del prestamo es obligatorio dejar el salvamento")
-                    else:
-                        print("la opcion que ingresaste no es valida")
+                    if instrumento.cantidad > 0:
+                        tiempo = Leer.int("ingrese el tiempo que quiere alquilar el instrumento (en dias) -> ")
+                        salvamento = Leer.string("para generar su alquiler debe dejar su cedula como salvamento de el alquiler, acepta (Si/No) -> ").lower()
+                        if salvamento == "si":
+                            
+                                alquiler = Alquiler(usuario.nombre, cedula, tiempo, instrumento.nombre, instrumento.valorAlquiler*tiempo)  
+                                alquiler.salvamento = True
+                                usuario.prestamos.append(alquiler)
+                                instrumento.cantidad -=1
+                                print(f"\nalquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias con un costo de ${instrumento.valorAlquiler*tiempo} ")
+                        elif salvamento == "no":
+                            print("lo sentimos pero para poder hacer el alquiler del prestamo es obligatorio dejar el salvamento")
+                        else:
+                            print("la opcion que ingresaste no es valida")
                 else:
                     print("El instrumento no está disponible para ser alquilado")
             else:
                 print("instrumento o usuario no encontrados.")   
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
+        
+    def encontrarIntrumentoAlquilerPorNombre(self, nombre):
+        for instrumento in self.instrumentosAlquiler:
+            if instrumento.nombre == nombre:
+                return instrumento
+        return None
+
+    def devolucionAlquiler(self):
+        try:
+            cedula = Leer.int("Ingrese la cedula del usuario que está devolviendo el instrumento alquilado -> ")
+            usuario = self.encontrarUsuario(cedula)
+
+            if usuario and len(usuario.prestamos) > 0:
+                print("\nInstrumentos en préstamo:")
+                for i, alquiler in enumerate(usuario.prestamos, start=1):
+                    print(f"{i}. {alquiler.nombreInstrumento} (Factura N° {alquiler.numeroFactura})")
+
+                opcion = Leer.int("\nIngrese el número de factura del instrumento que desea devolver -> ")
+
+                if 1 <= opcion <= len(usuario.prestamos):
+                    alquiler_devuelto = usuario.prestamos[opcion - 1]
+                    alquiler_devuelto.salvamento = False  # Desactivar el salvamento
+                    instrumento = self.encontrarIntrumentoAlquilerPorNombre(alquiler_devuelto.nombreInstrumento)
+                    instrumento.cantidad += 1  # Aumentar la cantidad disponible del instrumento
+                    usuario.prestamos.remove(alquiler_devuelto)
+                    print(f"\nDevolución exitosa. {usuario.nombre} ha devuelto el instrumento {alquiler_devuelto.nombreInstrumento}.")
+                else:
+                    print("Opción inválida.")
+            else:
+                print("Usuario no encontrado o no tiene instrumentos en préstamo.")
+        except ValueError:
+            print("Algo salió mal. Vuelve a intentarlo.")
     
     def prestamosUsuario(self, cedula):
         usuario = self.encontrarUsuario(cedula)
@@ -328,7 +363,10 @@ tienda.consultarStock()
 tienda.guardarDatos()
 # tienda.eliminarInstrumento()
 # tienda.consultarStock()
-# tienda.generarAlquiler()
+tienda.generarAlquiler()
+tienda.consultarPrestamosUsuario()
+tienda.devolucionAlquiler()
+tienda.consultarPrestamosUsuario()
 # tienda.consultarPrestamosUsuario()
 # tienda.generarVenta()
 
