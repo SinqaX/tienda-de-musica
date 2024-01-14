@@ -1,8 +1,7 @@
 #documento donde van a ir los menus y algunas funciones
-<<<<<<< HEAD
-if __name__=="__main__":
-    main()
-    
+from leer import Leer
+from tienda import *
+import os
 def main():
     while True:
         try:
@@ -47,16 +46,6 @@ def main():
                     main()
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
-=======
-def MenuGeneral():
-    print("\n------------- Menú Principal -------------")
-    print("1. Manejo de Usuarios")
-    print("2. Manejo de Ventas")
-    print("3. Manejo de Alquiler")
-    print("4. Manejo de Inventario")
-    print('------------------------------------------------------')
-    print("0. Salir")
->>>>>>> parent of 709ba6c (primeros 2 menús)
 
 def mostrar_menu_usuario():
     print("\n------------- Menú Manejo de Usuarios -------------")
@@ -128,4 +117,7 @@ def mostrar_menu_inventario():
     print('------------------------------------------------------')
     print("0. Salir")
 
+if __name__=="__main__":
+    main()
+    
 
