@@ -1,8 +1,7 @@
 import os
 from tienda import *
 #documento donde van a ir los menus y algunas funciones
-if __name__=="__main__":
-    main()
+
     
 def main():
     while True:
@@ -155,3 +154,5 @@ def mostrar_menu_inventario():
     print("0. Salir")
 
 
+if __name__=="__main__":
+    main()
