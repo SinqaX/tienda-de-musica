@@ -37,14 +37,18 @@ class Tienda:
                 return usuario
         return None
     
-    def consultarUsuario(self, cedula):
+    def consultarUsuario(self):
         try:
-            encontrado=self.encontrarUsuario(cedula)
-            if encontrado:
-                for usuario in self.usuarios:
-                    if usuario.cedula==cedula:
-                        print(f"Nombre: {usuario.nombre} \nCedula: {usuario.cedula}\n")
-            return False
+            cedula = Leer.int("ingrese su numero de cedula sin puntos ni comas -> ")
+            encontrado = self.encontrarUsuario(cedula)
+            if not encontrado:
+                print("-El usuario aún no ha sido ingresado a la base da datos-")
+            else:
+                print(f"""
+                      User:
+                      Nombre: {encontrado.nombre}
+                      Cedula: {encontrado.cedula}
+                      """)
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
 
@@ -63,7 +67,11 @@ class Tienda:
             usuario_encontrado = self.encontrarUsuario(cedula)
 
             if usuario_encontrado:
-                self.consultarUsuario(cedula)
+                print(f"""
+                      User a eliminar:
+                      Nombre: {usuario_encontrado.nombre}
+                      Cedula: {usuario_encontrado.cedula}
+                      """)
                 confirmacion = Leer.string("¿Está seguro de eliminar este usuario? (Si/No) -> ").lower()
 
                 if confirmacion == 'si':
@@ -313,7 +321,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -330,7 +338,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']

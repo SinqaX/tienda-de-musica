@@ -48,13 +48,47 @@ def main():
             print("algo salio mal vuelve a intentarlo")
 
 def mostrar_menu_usuario():
-    print("\n------------- Menú Manejo de Usuarios -------------")
-    print("1. Agregar Usuario")
-    print("2. Consultar Usuario")
-    print("3. Eliminar Usuario")
-    print("4. Mostrar Usuarios")
-    print('------------------------------------------------------')
-    print("0. Salir")
+    while True:
+        try:
+            os.system("cls")
+            print("\n------------- Menú Manejo de Usuarios -------------")
+            print("1. Agregar Usuario")
+            print("2. Consultar Usuario")
+            print("3. Eliminar Usuario")
+            print("4. Mostrar Usuarios")
+            print('------------------------------------------------------')
+            print("0. Volver al menú principal")
+            opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
+            match opcion:
+                case 1:
+                    os.system("cls")
+                    tienda.agregarUsuario()
+                    os.system("pause")
+                case 2:
+                    os.system("cls")
+                    tienda.consultarUsuario()
+                    os.system("pause")
+
+                case 3:
+                    os.system("cls")
+                    tienda.eliminarUsuario()
+                    os.system("pause")
+
+                case 4:
+                    os.system("cls")
+                    tienda.mostrarUsuarios()
+                    os.system("pause")
+
+                case 0:
+                    print("Volviendo al menú principal...")
+                    break
+
+                case _:
+                    print("Opción no válida. Por favor, seleccione una opción válida.")
+                    os.system("pause")
+                    mostrar_menu_usuario()
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
 
 def mostrar_menu_venta():
     while True:
@@ -114,16 +148,16 @@ def mostrar_menu_Alquiler():
             match opcion:
                 case 1:
                     os.system("cls")
-                    pass
+                    tienda.generarAlquiler()
                     os.system("pause")
                 case 2:
                     os.system("cls")
-                    pass
+                    tienda.consultarPrestamosUsuario()
                     os.system("pause")
 
                 case 3:
                     os.system("cls")
-                    pass
+                    tienda.devolucionAlquiler()
                     os.system("pause")
 
                 case 4:
