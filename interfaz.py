@@ -23,12 +23,12 @@ def main():
                     os.system("pause")
                 case 2:
                     os.system("cls")
-                    mostrar_menu_ventas()
+                    mostrar_menu_venta()
                     os.system("pause")
 
                 case 3:
                     os.system("cls")
-                    mostrar_menu_alquiler()
+                    mostrar_menu_Alquiler()
                     os.system("pause")
 
                 case 4:
