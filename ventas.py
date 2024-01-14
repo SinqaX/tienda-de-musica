@@ -9,7 +9,6 @@ class Venta:
 
     def generarFacturaVenta(self,):
         pass
-
 class VentaSeparado(Venta):
 
     def __init__(self, nombreCliente, fecha, totalPagar, abono):

@@ -11,6 +11,7 @@ def main():
             print("2. Manejo de Ventas")
             print("3. Manejo de Alquiler")
             print("4. Manejo de Inventario")
+            print("5. Manejo de Finanzas")
             print('------------------------------------------------------')
             print("0. Salir")
             opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
@@ -32,6 +33,11 @@ def main():
                 case 4:
                     os.system("cls")
                     mostrar_menu_inventario()
+                    os.system("pause")
+                
+                case 5:
+                    os.system("cls")
+                    mostrar_menu_finanzas()
                     os.system("pause")
 
                 case 0:
@@ -217,6 +223,43 @@ def mostrar_menu_inventario():
                     mostrar_menu_inventario()
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
+
+def mostrar_menu_finanzas():
+    while True:
+        try:
+            os.system("cls")
+            print("\n--- Menú Finanzas ---")
+            print("1. Ingresos Totales")
+            print("2. Ingresos por Ventas")
+            print("3. Ingresos por Alquileres")
+            print('------------------------------------------------------')
+            print("0. Salir")
+            opcion = Leer.int("Digite la opcion que desea seleccionar-> ")
+            match opcion:
+                case 1:
+                    os.system("cls")
+                    tienda.ingresosTotales()
+                    os.system("pause")
+                case 2:
+                    os.system("cls")
+                    tienda.ingresosPorVentas()
+                    os.system("pause")
+                case 3:
+                    os.system("cls")
+                    tienda.ingresosPorAlquileres()
+                    os.system("pause")
+    
+                case 0:
+                    print("Volviendo al menú principal...")
+                    break
+                case _:
+                    print("Opción no válida. Por favor, seleccione una opción válida.")
+                    os.system("pause")
+                    mostrar_menu_Alquiler()
+        except ValueError:
+            print("Algo salió mal. Vuelve a intentarlo.")
+            
+            
 
 if __name__=="__main__":
     main()
