@@ -37,18 +37,14 @@ class Tienda:
                 return usuario
         return None
     
-    def consultarUsuario(self):
+    def consultarUsuario(self, cedula):
         try:
-            cedula = Leer.int("ingrese su numero de cedula sin puntos ni comas -> ")
-            encontrado = self.encontrarUsuario(cedula)
-            if not encontrado:
-                print("-El usuario aún no ha sido ingresado a la base da datos-")
-            else:
-                print(f"""
-                      User:
-                      Nombre: {encontrado.nombre}
-                      Cedula: {encontrado.cedula}
-                      """)
+            encontrado=self.encontrarUsuario(cedula)
+            if encontrado:
+                for usuario in self.usuarios:
+                    if usuario.cedula==cedula:
+                        print(f"Nombre: {usuario.nombre} \nCedula: {usuario.cedula}\n")
+            return False
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
 
@@ -67,11 +63,7 @@ class Tienda:
             usuario_encontrado = self.encontrarUsuario(cedula)
 
             if usuario_encontrado:
-                print(f"""
-                      User a eliminar:
-                      Nombre: {usuario_encontrado.nombre}
-                      Cedula: {usuario_encontrado.cedula}
-                      """)
+                self.consultarUsuario(cedula)
                 confirmacion = Leer.string("¿Está seguro de eliminar este usuario? (Si/No) -> ").lower()
 
                 if confirmacion == 'si':
@@ -237,7 +229,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "D:\\Escritorio\\POO ENTRENAMIENTO\\clases trabajos\\clase-entero\\AplicativoTiendaVirtual\\tienda musica\\tienda-de-musica\\datosTiendaMusica"
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -254,7 +246,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "D:\\Escritorio\\POO ENTRENAMIENTO\\clases trabajos\\clase-entero\\AplicativoTiendaVirtual\\tienda musica\\tienda-de-musica\\datosTiendaMusica"
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']
@@ -308,50 +300,7 @@ class Tienda:
             venta.productos=productos 
         elif opcion==2:
              pass
-    def consultarInstrumentoAlquilerIndividual(self):
-        try:
-            for instrumento in self.instrumentosAlquiler:
-                print(f"""
-                    Codigo: {instrumento.codigo}
-                    Objeto: {instrumento.nombre}
-                    """)
-            instrumentoConsultar=Leer.int("Digite el codigo del instrumento a consultar-> ")
-            encontrado = self.encontrarIntrumentoAlquiler(instrumentoConsultar)      
-            if encontrado==None:
-                    print('El instrumento no se ha encontrado...')
-                    os.system('pause')
-            else:
-                
-                print(f"""
-                        Codigo:         {encontrado.codigo}
-                        Objeto:         {encontrado.nombre}
-                        Cantidad:       {encontrado.cantidad}
-                        Valor Alquiler: {encontrado.valorAlquiler}
-                            """)
-        except ValueError:
-            print("algo salio mal vuelve a intentarlo")
-    def consultarInstrumentoVentaIndividual(self):
-        try:
-            for instrumento in self.instrumentosVenta:
-                    print(f"""
-                        Codigo: {instrumento.codigo}
-                        Objeto: {instrumento.nombre}
-                        """)
-            instrumentoConsultar=Leer.int("Digite el codigo del instrumento a consultar-> ")
-            encontrado = self.encontrarIntrumentoVenta(instrumentoConsultar)      
-            if encontrado==None:
-                    print('El instrumento no se ha encontrado...')
-                    os.system('pause')
-            else:
-                
-                print(f"""
-                        Codigo:         {encontrado.codigo}
-                        Objeto:         {encontrado.nombre}
-                        Cantidad:       {encontrado.cantidad}
-                        Valor:          {encontrado.valorIntrumento}
-                            """)
-        except ValueError:
-            print("algo salio mal vuelve a intentarlo")                 
+                             
 
 
     # def generarPrestamo(self,):
@@ -382,9 +331,7 @@ tienda.guardarDatos()
 # tienda.generarAlquiler()
 # tienda.consultarPrestamosUsuario()
 # tienda.generarVenta()
-#jp
-#tienda.consultarInstrumentoAlquilerIndividual()
-#tienda.consultarInstrumentoVentaIndividual()
+
     #MODIFICACION FUNCIONES ALQUILER 
 
     # #CONSULTAR ALQUILER
