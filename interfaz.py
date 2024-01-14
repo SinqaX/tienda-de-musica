@@ -22,12 +22,12 @@ def main():
                     os.system("pause")
                 case 2:
                     os.system("cls")
-                    mostrar_menu_venta()
+                    mostrar_menu_ventas()
                     os.system("pause")
 
                 case 3:
                     os.system("cls")
-                    mostrar_menu_Alquiler()
+                    mostrar_menu_alquiler()
                     os.system("pause")
 
                 case 4:
@@ -93,13 +93,47 @@ def mostrar_menu_usuario():
 
 
 def mostrar_menu_venta():
-    print("\n------------- Menú Manejo de Ventas -------------")
-    print("1. Generar Venta")
-    print("2. Consultar Venta")
-    print("4. Eliminar Venta")
-    print("5. Mostrar Ventas")
-    print('------------------------------------------------------')
-    print("0. Salir")
+    while True:
+        try:
+            print("\n------------- Menú Manejo de Ventas -------------")
+            print("1. Generar Venta")
+            print("2. Consultar Venta")
+            print("4. Eliminar Venta")
+            print("5. Mostrar Ventas")
+            print('------------------------------------------------------')
+            print("0. Salir")
+            opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
+            match opcion:
+                case 1:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+                case 2:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+
+                case 3:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+
+                case 4:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+
+                case 0:
+                    print("Volviendo al menú principal...")
+                    break
+
+                case _:
+                    print("Opción no válida. Por favor, seleccione una opción válida.")
+                    os.system("pause")
+                    mostrar_menu_venta()
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
+
 
 def mostrar_menu_Alquiler():
     while True:
@@ -115,23 +149,23 @@ def mostrar_menu_Alquiler():
             opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
             match opcion:
                 case 1:
-                    os.system("cls")
-                    tienda.generarAlquiler()
-                    os.system("pause")
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
                 case 2:
-                    os.system("cls")
-                    tienda.consultarPrestamosUsuario()
-                    os.system("pause")
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
 
                 case 3:
-                    os.system("cls")
-                    tienda.devolucionInstrumento()
-                    os.system("pause")
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
 
                 case 4:
-                    os.system("cls")
+                    #os.system("cls")
                     pass
-                    os.system("pause")
+                    #os.system("pause")
 
                 case 0:
                     print("Volviendo al menú principal...")
@@ -145,13 +179,46 @@ def mostrar_menu_Alquiler():
             print("algo salio mal vuelve a intentarlo")
 
 def mostrar_menu_inventario():
-    print("\n------------- Menú Manejo de Inventario -------------")
-    print("1. Agregar Instrumento")
-    print("2. Consultar Instrumento")
-    print("3. Mostrar Instrumentos")
-    print("4. Eliminar Instrumento")
-    print('------------------------------------------------------')
-    print("0. Salir")
+    while True:
+        try:
+            print("\n------------- Menú Manejo de Inventario -------------")
+            print("1. Agregar Instrumento")
+            print("2. Consultar Instrumento")
+            print("3. Mostrar Instrumentos")
+            print("4. Eliminar Instrumento")
+            print('------------------------------------------------------')
+            print("0. Salir")
+            opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
+            match opcion:
+                case 1:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+                case 2:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+
+                case 3:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+
+                case 4:
+                    #os.system("cls")
+                    pass
+                    #os.system("pause")
+
+                case 0:
+                    print("Volviendo al menú principal...")
+                    break
+
+                case _:
+                    print("Opción no válida. Por favor, seleccione una opción válida.")
+                    os.system("pause")
+                    mostrar_menu_inventario()
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
 
 
 if __name__=="__main__":
