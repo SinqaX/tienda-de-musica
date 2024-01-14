@@ -199,6 +199,8 @@ class Tienda:
                             print("lo sentimos pero para poder hacer el alquiler del prestamo es obligatorio dejar el salvamento")
                         else:
                             print("la opcion que ingresaste no es valida")
+                    else:
+                        print("no hay disponibilidad del instrumento por el momento ")
                 else:
                     print("El instrumento no está disponible para ser alquilado")
             else:
@@ -260,6 +262,53 @@ class Tienda:
                 print("el usuario no se encuentra registrado")
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
+    
+    def consultarInstrumentoAlquilerIndividual(self):
+        try:
+            for instrumento in self.instrumentosAlquiler:
+                print(f"""
+                    Codigo: {instrumento.codigo}
+                    Objeto: {instrumento.nombre}
+                    """)
+            instrumentoConsultar=Leer.int("Digite el codigo del instrumento a consultar-> ")
+            encontrado = self.encontrarIntrumentoAlquiler(instrumentoConsultar)      
+            if encontrado==None:
+                    print('El instrumento no se ha encontrado...')
+                    os.system('pause')
+            else:
+                
+                print(f"""
+                        Codigo:         {encontrado.codigo}
+                        Objeto:         {encontrado.nombre}
+                        Cantidad:       {encontrado.cantidad}
+                        Valor Alquiler: {encontrado.valorAlquiler}
+                            """)
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")
+
+    def consultarInstrumentoVentaIndividual(self):
+        try:
+            for instrumento in self.instrumentosVenta:
+                    print(f"""
+                        Codigo: {instrumento.codigo}
+                        Objeto: {instrumento.nombre}
+                        """)
+            instrumentoConsultar=Leer.int("Digite el codigo del instrumento a consultar-> ")
+            encontrado = self.encontrarIntrumentoVenta(instrumentoConsultar)      
+            if encontrado==None:
+                    print('El instrumento no se ha encontrado...')
+                    os.system('pause')
+            else:
+                
+                print(f"""
+                        Codigo:         {encontrado.codigo}
+                        Objeto:         {encontrado.nombre}
+                        Cantidad:       {encontrado.cantidad}
+                        Valor:          {encontrado.valorIntrumento}
+                            """)
+        except ValueError:
+            print("algo salio mal vuelve a intentarlo")                 
+
 
     def guardarDatos(self):
         try:
@@ -363,10 +412,12 @@ tienda.consultarStock()
 tienda.guardarDatos()
 # tienda.eliminarInstrumento()
 # tienda.consultarStock()
-tienda.generarAlquiler()
-tienda.consultarPrestamosUsuario()
-tienda.devolucionAlquiler()
-tienda.consultarPrestamosUsuario()
+# tienda.generarAlquiler()
+# tienda.generarAlquiler()
+# tienda.generarAlquiler()
+# tienda.consultarPrestamosUsuario()
+# tienda.devolucionAlquiler()
+# tienda.consultarPrestamosUsuario()
 # tienda.consultarPrestamosUsuario()
 # tienda.generarVenta()
 
