@@ -5,6 +5,8 @@ class Usuario:
         self.nombre = nombre
         self.cedula = cedula
         self.prestamos = []
+
+        
     
 
         

@@ -221,6 +221,13 @@ class Tienda:
             if instrumento.nombre == nombre:
                 return instrumento
         return None
+    
+    def mostrarAlquileres(self):
+        for usuario in self.usuarios:
+                for prestamo in usuario.prestamos:
+                    print(prestamo)
+            
+
 
     def devolucionAlquiler(self):
         try:
@@ -450,6 +457,11 @@ tienda.mostrarUsuarios()
 # tienda.agregarInstrumento()
 tienda.consultarStock()
 tienda.guardarDatos()
+tienda.generarAlquiler()
+# tienda.generarAlquiler()
+# tienda.mostrarAlquileres()
+# tienda.devolucionAlquiler()
+tienda.mostrarAlquileres()
 # tienda.eliminarInstrumento()
 # tienda.consultarStock()
 # tienda.generarAlquiler()

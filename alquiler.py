@@ -12,7 +12,16 @@ class Alquiler:
         self.salvamento = False
 
     def __str__(self):
-        return f"-----Numero de Factura {self.numeroFactura}----- \nNombre del usuario: {self.nombreUsuario} \nCedula del usuario: {self.cedulaUsuario} \nTiempo de alquiler: {self.tiempoAlquiler} dia(s) \nNombre del instrumento: {self.nombreInstrumento} \nSalvamento: {self.salvamento} \nTOTAL A PAGAR: {self.totalPagar}\n"
+        return f"""  
+    --------FACTURA N° |{self.numeroFactura}|--------   
+_______________________________________
+    Nombre del usuario:     {self.nombreUsuario}        
+    Cedula del usuario:     {self.cedulaUsuario}        
+    Tiempo de alquiler:     {self.tiempoAlquiler} dia(s)
+    Nombre del instrumento: {self.nombreInstrumento}    
+    Salvamento:             {self.salvamento}           
+--------------------------------------
+        TOTAL A PAGAR:      {self.totalPagar}"""
 
 
 
