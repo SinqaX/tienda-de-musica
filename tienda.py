@@ -161,6 +161,18 @@ class Tienda:
             for instrumento in self.instrumentosAlquiler:
                 print(instrumento)
     
+    def consultarIntrumentosCodigo(self):
+        try:
+            opcion = Leer.int("digite : (1) para instrumentos de alquiler\ndigite : (2) para instrumentos de venta -> ")
+        except ValueError:
+            print("Error: la opcion digitada debe ser 1 u 2")
+            return
+
+        if opcion == 1:
+            self.consultarInstrumentoAlquilerIndividual()
+        if opcion == 2:
+            self.consultarInstrumentoVentaIndividual()
+
     def eliminarInstrumento(self):
         try:
             codigo = Leer.int("ingrese el codigo del instrumento que desea eliminar -> ")
@@ -446,22 +458,22 @@ class Tienda:
     # def modificarDisponibilidadInstrumento(self,):
     #     pass
 
-tienda = Tienda()
-tienda.cargarDatos()
-# tienda.agregarUsuario()
-# tienda.agregarUsuario()
-tienda.mostrarUsuarios()
-# tienda.eliminarUsuario()
-# tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
-# tienda.agregarInstrumento()
-# tienda.agregarInstrumento()
-tienda.consultarStock()
-tienda.guardarDatos()
-tienda.generarAlquiler()
+# tienda = Tienda()
+# tienda.cargarDatos()
+# # tienda.agregarUsuario()
+# # tienda.agregarUsuario()
+# tienda.mostrarUsuarios()
+# # tienda.eliminarUsuario()
+# # tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
+# # tienda.agregarInstrumento()
+# # tienda.agregarInstrumento()
+# tienda.consultarStock()
+# tienda.guardarDatos()
 # tienda.generarAlquiler()
+# # tienda.generarAlquiler()
+# # tienda.mostrarAlquileres()
+# # tienda.devolucionAlquiler()
 # tienda.mostrarAlquileres()
-# tienda.devolucionAlquiler()
-tienda.mostrarAlquileres()
 # tienda.eliminarInstrumento()
 # tienda.consultarStock()
 # tienda.generarAlquiler()
