@@ -10,6 +10,8 @@ from alquiler import Alquiler
 import pickle
 class Tienda:
 
+    cajaVentas=[]
+    cajaAlquileres=[]
     codigosUtilizados = set()
 
     def __init__(self):
@@ -214,6 +216,7 @@ class Tienda:
                                 alquiler.salvamento = True
                                 usuario.prestamos.append(alquiler)
                                 instrumento.cantidad -=1
+                                Tienda.cajaAlquileres.append(alquiler.totalPagar)
                                 print(f"\nalquiler exitoso. {usuario.nombre}  ha pedido prestado el instrumento :{instrumento.nombre} por {tiempo} dias con un costo de ${instrumento.valorAlquiler*tiempo} ")
                         elif salvamento == "no":
                             print("lo sentimos pero para poder hacer el alquiler del prestamo es obligatorio dejar el salvamento")
@@ -339,7 +342,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "D:\\Escritorio\\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -356,7 +359,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "D:\\Escritorio\\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']
@@ -414,14 +417,10 @@ class Tienda:
             
     def ingresosTotales(self):
         total_ingresos = 0
-        for venta in self.ventas:
-            total_ingresos += venta.totalPagar
-        for venta_separada in self.ventasSeparado:
-            total_ingresos += venta_separada.totalPagar
-        for alquiler in self.usuarios:
-            for prestamo in alquiler.prestamos:
-                total_ingresos += prestamo.totalPagar
-        print(f"Ingresos totales: ${total_ingresos}")
+        for alquiler in Tienda.cajaAlquileres:
+            total_ingresos+=alquiler
+        for venta in Tienda.cajaVentas:
+            total_ingresos+=venta
 
     def ingresosPorVentas(self):
         total_ventas = 0
@@ -437,11 +436,8 @@ class Tienda:
 
     def ingresosPorAlquileres(self):
         total_alquileres = 0
-        for usuario in self.usuarios:
-            for prestamo in usuario.prestamos:
-                # Solo sumar el valor del alquiler si es un nuevo alquiler (no devolución)
-                if not prestamo.salvamento:
-                    total_alquileres += prestamo.totalPagar
+        for alquiler in Tienda.cajaAlquileres:
+            total_alquileres+=alquiler
         print(f"Ingresos por alquileres: ${total_alquileres}")                         
 
 
