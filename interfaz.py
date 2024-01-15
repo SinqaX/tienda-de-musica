@@ -2,7 +2,23 @@
 from leer import Leer
 from tienda import *
 import os
+
+
+def iniciar_sesion():
+    usuario = Leer.string("Ingrese el nombre de usuario: ").lower()
+    contrasena = Leer.int("Ingrese la contraseña: ")
+
+    if usuario == "sebas" and contrasena == 0000:
+        print("Inicio de sesión exitoso.")
+        return True
+    else:
+        os.system("cls")
+        print("Nombre de usuario o contraseña incorrectos. Inténtelo de nuevo.")
+        return False
+
 def main():
+    if not iniciar_sesion():
+        iniciar_sesion()
 
     tienda = Tienda()
     tienda.cargarDatos()
