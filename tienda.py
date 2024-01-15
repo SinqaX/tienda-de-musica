@@ -349,7 +349,8 @@ class Tienda:
                     'instrumentosVenta': self.instrumentosVenta,
                     'instrumentosAlquiler': self.instrumentosAlquiler,
                     'ventas': self.ventas,
-                    'ventasSeparado': self.ventasSeparado
+                    'ventasSeparado': self.ventasSeparado,
+                    'cajaAlquileres' : Tienda.cajaAlquileres
                 }
                 pickle.dump(datos_tienda, archivo)
             print(f"Datos guardados exitosamente en {nombre_archivo}")
@@ -367,6 +368,7 @@ class Tienda:
                 self.instrumentosAlquiler = datos_tienda['instrumentosAlquiler']
                 self.ventas = datos_tienda['ventas']
                 self.ventasSeparado = datos_tienda['ventasSeparado']
+                Tienda.cajaAlquileres= datos_tienda['cajaAlquileres']
             print(f"Datos cargados exitosamente desde {nombre_archivo}")
         except Exception as e:
             print(f"Error al cargar los datos: {e}")
