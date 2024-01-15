@@ -301,14 +301,13 @@ class Tienda:
             encontrado = self.encontrarIntrumentoAlquiler(instrumentoConsultar)      
             if encontrado==None:
                     print('El instrumento no se ha encontrado...')
-                    os.system('pause')
             else:
                 
                 print(f"""
-                        Codigo:         {encontrado.codigo}
-                        Objeto:         {encontrado.nombre}
-                        Cantidad:       {encontrado.cantidad}
-                        Valor Alquiler: {encontrado.valorAlquiler}
+                    Codigo:         {encontrado.codigo}
+                    Objeto:         {encontrado.nombre}
+                    Cantidad:       {encontrado.cantidad}
+                    Valor Alquiler: {encontrado.valorAlquiler}
                             """)
         except ValueError:
             print("algo salio mal vuelve a intentarlo")
@@ -340,7 +339,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -357,7 +356,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']
@@ -460,13 +459,16 @@ class Tienda:
 
 # tienda = Tienda()
 # tienda.cargarDatos()
-# # tienda.agregarUsuario()
-# # tienda.agregarUsuario()
+# tienda.agregarUsuario()
+# tienda.agregarUsuario()
+# tienda.agregarUsuario()
 # tienda.mostrarUsuarios()
-# # tienda.eliminarUsuario()
-# # tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
-# # tienda.agregarInstrumento()
-# # tienda.agregarInstrumento()
+# # # tienda.eliminarUsuario()
+# # # tienda.mostrarUsuarios() # Verificar que el usuario fue eliminado
+# tienda.agregarInstrumento()
+# tienda.agregarInstrumento()
+# tienda.agregarInstrumento()
+# tienda.agregarInstrumento()
 # tienda.consultarStock()
 # tienda.guardarDatos()
 # tienda.generarAlquiler()

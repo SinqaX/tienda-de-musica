@@ -5,7 +5,7 @@ import os
 def main():
 
     tienda = Tienda()
-        
+    tienda.cargarDatos()
     def mostrar_menu_usuario():
         while True:
             try:
