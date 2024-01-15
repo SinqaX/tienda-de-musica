@@ -12,7 +12,7 @@ def main():
         admin = Leer.string("Ingrese el nombre del Administador: ").lower()
         contrasena = Leer.int("Ingrese la contraseña numerica: ")
 
-        if admin == "sebas" and contrasena == 0000:
+        if admin == "admin" and contrasena == 0000:
             print("Inicio de sesión exitoso.")
             return True
         else:
