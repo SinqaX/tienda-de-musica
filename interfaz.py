@@ -72,43 +72,51 @@ def main():
     def mostrar_menu_venta():
         while True:
             try:
-                print("\n------------- Menú Manejo de Ventas -------------")
-                print("1. Generar Venta")
-                print("2. Consultar Venta")
-                print("4. Eliminar Venta")
-                print("5. Mostrar Ventas")
+                os.system("cls")
+                print("\n------------- Menú Principal -------------")
+                print("1. Manejo de Usuarios")
+                print("2. Manejo de Ventas")
+                print("3. Manejo de Alquiler")
+                print("4. Manejo de Inventario")
+                print("5. Manejo de Finanzas")
                 print('------------------------------------------------------')
                 print("0. Salir")
                 opcion=Leer.int("Digite la opcion que desea seleccionar-> ")
                 match opcion:
                     case 1:
-                        #os.system("cls")
-                        pass
-                        #os.system("pause")
+                        os.system("cls")
+                        mostrar_menu_usuario()
+                        os.system("pause")
                     case 2:
-                        #os.system("cls")
-                        pass
-                        #os.system("pause")
+                        os.system("cls")
+                        mostrar_menu_venta()
+                        os.system("pause")
 
                     case 3:
-                        #os.system("cls")
-                        pass
-                        #os.system("pause")
+                        os.system("cls")
+                        mostrar_menu_Alquiler()
+                        os.system("pause")
 
                     case 4:
-                        #os.system("cls")
-                        pass
-                        #os.system("pause")
+                        os.system("cls")
+                        mostrar_menu_inventario()
+                        os.system("pause")
+                    
+                    case 5:
+                        os.system("cls")
+                        mostrar_menu_finanzas()
+                        os.system("pause")
 
                     case 0:
-                        print("Volviendo al menú principal...")
                         tienda.guardarDatos()
+                        print("Saliendo del programa...")
+                        
                         break
 
                     case _:
                         print("Opción no válida. Por favor, seleccione una opción válida.")
                         os.system("pause")
-                        mostrar_menu_venta()
+                        main()
             except ValueError:
                 print("algo salio mal vuelve a intentarlo")
 

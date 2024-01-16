@@ -1,6 +1,6 @@
 class Venta:
 
-    def __init__(self, cedulaCliente, fecha, totalPagar):
+    def _init_(self, cedulaCliente, fecha, totalPagar):
         self.cedulaCliente = cedulaCliente
         # self.nombreInstrumento = nombreInstrumento -----> BORRAR, YA HAY PRODUCTOS
         self.fecha = fecha
@@ -11,9 +11,10 @@ class Venta:
         pass
 class VentaSeparado(Venta):
 
-    def __init__(self, nombreCliente, fecha, totalPagar, abono):
-        super().__init__(nombreCliente, fecha, totalPagar, abono)
+    def _init_(self, nombreCliente, fecha, totalPagar):
+        super()._init_(nombreCliente, fecha, totalPagar)
         self.abono = 0
+        self.productos = []
     
 
 
