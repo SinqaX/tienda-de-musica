@@ -342,7 +342,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\Alejandro\\Documents\\Ingenieria de sistemas\\Semestre 4\\Programacion ll\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -360,7 +360,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\Alejandro\\Documents\\Ingenieria de sistemas\\Semestre 4\\Programacion ll\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']
@@ -397,49 +397,49 @@ class Tienda:
                 ventaSeparado.abono += abono
                 print(f'Saldo pendiente: {totalPagar-ventaSeparado.abono}')
                 self.ventasSeparado.append(ventaSeparado)
-                
+                                           
     def productosTotalPagar(self):
-            totalPagar = 0 
-            productos = []
-            while True:
-                self.consultarInstrumentosVenta()
-                codigo = Leer.int('Ingrese el codigo del instrumento-> ')
-                instrumento = self.encontrarIntrumentoVenta(codigo)
-                if instrumento==None:
-                    print('El instrumento no se ha encontrado...')
+        totalPagar = 0 
+        productos = []
+        while True:
+            self.consultarInstrumentosVenta()
+            codigo = Leer.int('Ingrese el codigo del instrumento-> ')
+            instrumento = self.encontrarIntrumentoVenta(codigo)
+            if instrumento==None:
+                print('El instrumento no se ha encontrado...')
+                os.system('pause')
+            else:
+                if instrumento.cantidad<0:
+                    print('No hay mas unidades de este instrumento...')
                     os.system('pause')
+                    continue
                 else:
-                    if instrumento.cantidad<0:
-                        print('No hay mas unidades de este instrumento...')
-                        os.system('pause')
-                        continue
-                    else:
-                        i=0
-                        while i<len(self.instrumentosVenta):
-                            if codigo==self.instrumentosVenta[i].codigo:
-                                self.instrumentosVenta[i].cantidad -= 1
-                                totalPagar += self.instrumentosVenta[i].valorIntrumento
-                                print('Venta satisfactoria ...')
-                                productos.append(self.instrumentosVenta[i])
-                                break
-                            i+=1
-                        a = Leer.string('Desea ingresar un nuevo producto? (s/n) -> ')
-                        if a.lower()=='s':
-                            continue
-                        elif a.lower()=='n':
+                    i=0
+                    while i<len(self.instrumentosVenta):
+                        if codigo==self.instrumentosVenta[i].codigo:
+                            self.instrumentosVenta[i].cantidad -= 1
+                            totalPagar += self.instrumentosVenta[i].valorIntrumento
+                            print('Venta satisfactoria ...')
+                            productos.append(self.instrumentosVenta[i])
                             break
-                        else:
-                            print('Opcion no valida...')
-                            os.system('pause')
-            return productos,totalPagar
-        
+                        i+=1
+                    a = Leer.string('Desea ingresar un nuevo producto? (s/n) -> ')
+                    if a.lower()=='s':
+                        continue
+                    elif a.lower()=='n':
+                        break
+                    else:
+                        print('Opcion no valida...')
+                        os.system('pause')
+        return productos,totalPagar
+    
     def generarFacturaVenta(self,venta):
         for producto in venta.productos:
             print(f'Nombre del producto: {producto.nombre} Precio: {producto.valorIntrumento}')
         print('-----------------------------------------------------')
         print(f'Valor total: {venta.totalPagar}')
         print('-----------------------------------------------------')
-                
+
     def consultarVenta(self):
         while True:
             ced = Leer.int('Igrese cedula del usuario -> ')
@@ -460,17 +460,16 @@ class Tienda:
                 print('VENTAS SEPARADO')
                 self.consultarVentasSeparado(ced)
                 break
-    
+               
+            
     def consultarVentasContado(self,ced):
         for venta in self.ventas:
             if venta.cedulaCliente == ced:
                 self.generarFacturaVenta(venta)
-    
     def consultarVentasSeparado(self,ced):
         for venta in self.ventasSeparado:
             if venta.cedulaCliente == ced:
                 self.generarFacturaVentaSeparado(venta)
-                
     def generarFacturaVentaSeparado(self,ventaSeparado):
         for producto in ventaSeparado.productos:
             print(f'Nombre del producto: {producto.nombre} Precio: {producto.valorIntrumento}')
@@ -479,7 +478,7 @@ class Tienda:
         print(f'Valor abonado: {ventaSeparado.abono}')
         print(f'Valor faltante: {ventaSeparado.totalPagar-ventaSeparado.abono}')
         print('-----------------------------------------------------')
-        
+
     def mostrarVentas(self):
         print('VENTAS DE CONTADO: ----------------------------------------------- ')
         for i in range(len(self.ventas)):
@@ -488,8 +487,8 @@ class Tienda:
         print('VENTAS SEPARADO -------------------------------------------------- ')
         for j in range(len(self.ventasSeparado)):
             print(f'Ventas Separado No.{j+1}')
-            self.generarFacturaVentaSeparado(self.ventasSeparado[j]) 
-    
+            self.generarFacturaVentaSeparado(self.ventasSeparado[j])
+
     def eliminarVenta(self):
         while True:
             opcion = Leer.int('Ingrese opcion: (1)Venta de contado (2)Venta Saparada -> ')
@@ -527,7 +526,6 @@ class Tienda:
                 print('Opcion no valida...')
                 os.system('pause')
                 break
-    
     def pagarSeparado(self):
         ced = Leer.int('Digite cedula -> ')
         for i in range(len(self.ventasSeparado)):
@@ -552,7 +550,7 @@ class Tienda:
             else:
                 print('La cantidad abonada es mayor que la faltante...')
         else:
-            print("Numero de venta fuera de rango... ")   
+            print("Numero de venta fuera de rango... ")
         
     #FUNCIONES MENÚ FINANZAS
             
