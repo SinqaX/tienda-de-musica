@@ -5,6 +5,7 @@ class Instrumento:
         self.codigo = codigo
         self.cantidad = cantidad
         
+        
 
     def consultarDisponibilidad(self,):
         pass

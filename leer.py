@@ -22,7 +22,7 @@ class Leer:
         while True:
             try:
                 valor = input(mensaje)
-                if valor.isalpha():
+                if str(valor):
                     return valor
                 else:
                     raise ValueError("Error: Por favor, ingrese una cadena de texto válida.")

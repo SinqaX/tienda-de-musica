@@ -176,6 +176,7 @@ class Tienda:
             self.consultarInstrumentoVentaIndividual()
 
     def eliminarInstrumento(self):
+        self.consultarStock()
         try:
             codigo = Leer.int("ingrese el codigo del instrumento que desea eliminar -> ")
         except ValueError:
