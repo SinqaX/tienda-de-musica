@@ -543,8 +543,17 @@ class Tienda:
                 print('Opcion no valida...')
                 os.system('pause')
                 break
+    def mostrarUsuariosSeparados(self):
+        usuarios = []
+        for i in self.ventasSeparado:
+            if i.cedulaCliente not in usuarios:
+                usuarios.append(i.cedulaCliente)
+        for ced in usuarios:
+            usuario = self.encontrarUsuario(ced)
+            print(f'Usuario: {usuario.nombre}  |  Cedula: {usuario.cedula}')
+
     def pagarSeparado(self):
-        self.mostrarUsuarios()
+        self.mostrarUsuariosSeparados()
         ced = Leer.int('Digite cedula -> ')
         validacion = self.encontrarUsuario(ced)
         if validacion == None:

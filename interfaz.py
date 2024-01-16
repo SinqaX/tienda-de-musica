@@ -13,7 +13,7 @@ def main():
         contrasena_valida = '1234'
 
         while True:
-            usuario = input("Ingrese nombre de usuario: ")
+            usuario = input("\nIngrese nombre de usuario: ")
             contrasena = input("Ingrese contraseña: ")
 
             if usuario == usuario_valido and contrasena == contrasena_valida:
@@ -72,6 +72,7 @@ def main():
     def mostrar_menu_venta():
         while True:
             try:
+                os.system('cls')
                 print("\n------------- Menú Manejo de Ventas -------------")
                 print("1. Generar Venta")
                 print("2. Consultar Venta Por Usuario")
@@ -163,6 +164,7 @@ def main():
     def mostrar_menu_inventario():
         while True:
             try:
+                os.system('cls')
                 print("\n------------- Menú Manejo de Inventario -------------")
                 print("1. Agregar Instrumento")
                 print("2. Consultar Instrumentos")
@@ -206,6 +208,7 @@ def main():
     def mostrar_menu_finanzas():
         while True:
             try:
+                os.system('cls')
                 os.system("cls")
                 print("\n--- Menú Finanzas ---")
                 print("1. Ingresos Totales")
