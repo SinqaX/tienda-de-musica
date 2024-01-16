@@ -342,7 +342,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\Alejandro\\Documents\\Ingenieria de sistemas\\Semestre 4\\Programacion ll\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -360,7 +360,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\Alejandro\\Documents\\Ingenieria de sistemas\\Semestre 4\\Programacion ll\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']
@@ -435,7 +435,7 @@ class Tienda:
     
     def generarFacturaVenta(self,venta):
         for producto in venta.productos:
-            print(f'Nombre del producto: {producto.nombre} Precio: {producto.valorIntrumento}')
+            print(f'\nNombre del producto: {producto.nombre} \nPrecio: {producto.valorIntrumento}')
         print('-----------------------------------------------------')
         print(f'Valor total: {venta.totalPagar}')
         print('-----------------------------------------------------')

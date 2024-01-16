@@ -105,6 +105,7 @@ def main():
 
                     case 0:
                         print("Volviendo al menú principal...")
+                        tienda.guardarDatos()
                         break
 
                     case _:
