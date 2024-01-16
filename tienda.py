@@ -343,7 +343,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -361,7 +361,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "D:\\Escritorio\POO ENTRENAMIENTO\\clases trabajos\\TIENDA MUSICAA\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']
@@ -389,6 +389,7 @@ class Tienda:
                 venta.productos=productos 
                 self.generarFacturaVenta(venta)
                 self.ventas.append(venta)
+                Tienda.cajaVentas.append(totalPagar)
             elif opcion==2:
                 productos, totalPagar = self.productosTotalPagar()
                 ventaSeparado = VentaSeparado(ced,fech,totalPagar)
@@ -398,6 +399,7 @@ class Tienda:
                 ventaSeparado.abono += abono
                 print(f'Saldo pendiente: {totalPagar-ventaSeparado.abono}')
                 self.ventasSeparado.append(ventaSeparado)
+                Tienda.cajaVentas.append(abono)
                                            
     def productosTotalPagar(self):
         totalPagar = 0 
@@ -557,28 +559,25 @@ class Tienda:
             
     def ingresosTotales(self):
         total_ingresos = 0
+        for venta in Tienda.cajaVentas:
+            total_ingresos += venta
         for alquiler in Tienda.cajaAlquileres:
             total_ingresos+=alquiler
-        for venta in Tienda.cajaVentas:
-            total_ingresos+=venta
-
+        print(f"Ingresos Totales de tienda: ${total_ingresos}")
+        
     def ingresosPorVentas(self):
         total_ventas = 0
-        for venta in self.ventas:
-            total_ventas += venta.totalPagar
+        for venta in Tienda.cajaVentas:
+            total_ventas += venta
         print(f"Ingresos por ventas: ${total_ventas}")
 
-    def ingresosPorVentasSeparado(self):
-        total_ventas_separado = 0
-        for venta_separada in self.ventasSeparado:
-            total_ventas_separado += venta_separada.totalPagar
-        print(f"Ingresos por ventas separado: ${total_ventas_separado}")
+
 
     def ingresosPorAlquileres(self):
         total_alquileres = 0
         for alquiler in Tienda.cajaAlquileres:
             total_alquileres+=alquiler
-        print(f"Ingresos por alquileres: ${total_alquileres}")                         
+        print(f"Ingresos por alquileres: ${total_alquileres}")                        
 
 
     # def generarPrestamo(self,):
