@@ -74,7 +74,7 @@ def main():
             try:
                 print("\n------------- Menú Manejo de Ventas -------------")
                 print("1. Generar Venta")
-                print("2. Consultar Venta")
+                print("2. Consultar Venta Por Usuario")
                 print("3. Eliminar Venta")
                 print("4. Mostrar Ventas")
                 print("5. Pagar Separado")

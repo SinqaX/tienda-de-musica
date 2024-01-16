@@ -201,8 +201,9 @@ class Tienda:
 
     def generarAlquiler(self):
         self.consultarInstrumentosAlquiler()
+        self.mostrarUsuarios()
         try:
-            codigo = Leer.int("ingrese el codigo del instrumento que se va alquilar -> ")
+            codigo = Leer.int("\ningrese el codigo del instrumento que se va alquilar -> ")
             cedula = Leer.int("ingrese la cedula del usuario que quiere alquilar el instrumento -> ")
             instrumento = self.encontrarIntrumentoAlquiler(codigo)
             usuario = self.encontrarUsuario(cedula)
@@ -343,7 +344,7 @@ class Tienda:
     def guardarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\Alejandro\\Documents\\Ingenieria de sistemas\\Semestre 4\\Programacion ll\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'wb') as archivo:
                 datos_tienda = {
                     'usuarios': self.usuarios,
@@ -361,7 +362,7 @@ class Tienda:
     def cargarDatos(self):
         try:
             #cambiar ruta para el archivo para que les funciones
-            nombre_archivo = "C:\\Users\\SEBASTIAN\\OneDrive\\Documentos\\GitHub\\Segundo_Semestre_U\\tienda-de-musica\\datosTIendaMusica"
+            nombre_archivo = "C:\\Users\\Alejandro\\Documents\\Ingenieria de sistemas\\Semestre 4\\Programacion ll\\tienda-de-musica\\datosTIendaMusica"
             with open(nombre_archivo, 'rb') as archivo:
                 datos_tienda = pickle.load(archivo)
                 self.usuarios = datos_tienda['usuarios']
@@ -375,10 +376,11 @@ class Tienda:
             print(f"Error al cargar los datos: {e}")
 #Funciones ventas
     def generarVenta(self):
-        ced = Leer.int('Cedula del cliente -> ')
+        self.mostrarUsuarios()
+        ced = Leer.int('\nCedula del cliente -> ')
         usuario = self.encontrarUsuario(ced)
         if usuario==None:
-            print('Usuario no encontrado, digite el numero de cedula de nuevo...')
+            print('Usuario no encontrado...')
         else:
             fechHorActual = datetime.now()
             fech = fechHorActual.strftime("%Y-%m-%d")
@@ -387,19 +389,27 @@ class Tienda:
                 productos, totalPagar = self.productosTotalPagar()
                 venta = Venta(ced,fech,totalPagar)
                 venta.productos=productos 
+                os.system('cls')
+                print('-----------------------------------------------------')
+                print('VENTA')
                 self.generarFacturaVenta(venta)
                 self.ventas.append(venta)
-                Tienda.cajaVentas.append(totalPagar)
+                Tienda.cajaVentas.append(venta.totalPagar)
             elif opcion==2:
                 productos, totalPagar = self.productosTotalPagar()
                 ventaSeparado = VentaSeparado(ced,fech,totalPagar)
                 ventaSeparado.productos = productos
+                os.system('cls')
+                print('-----------------------------------------------------')
+                print('VENTA SEPARADO')
                 self.generarFacturaVenta(ventaSeparado)
                 abono = Leer.float("Ingrese la cantidad del abono -> ")
                 ventaSeparado.abono += abono
                 print(f'Saldo pendiente: {totalPagar-ventaSeparado.abono}')
                 self.ventasSeparado.append(ventaSeparado)
                 Tienda.cajaVentas.append(abono)
+            else:
+                print('Opcion no valida ...')
                                            
     def productosTotalPagar(self):
         totalPagar = 0 
@@ -422,6 +432,7 @@ class Tienda:
                         if codigo==self.instrumentosVenta[i].codigo:
                             self.instrumentosVenta[i].cantidad -= 1
                             totalPagar += self.instrumentosVenta[i].valorIntrumento
+                            print('-------------------------------------')
                             print('Venta satisfactoria ...')
                             productos.append(self.instrumentosVenta[i])
                             break
@@ -438,13 +449,14 @@ class Tienda:
     
     def generarFacturaVenta(self,venta):
         for producto in venta.productos:
-            print(f'\nNombre del producto: {producto.nombre} \nPrecio: {producto.valorIntrumento}')
-        print('-----------------------------------------------------')
+            print(f'\nNombre del producto: {producto.nombre} | Precio: {producto.valorIntrumento}')
+        print('-----------------------')
         print(f'Valor total: {venta.totalPagar}')
         print('-----------------------------------------------------')
 
     def consultarVenta(self):
         while True:
+            self.mostrarUsuarios()
             ced = Leer.int('Igrese cedula del usuario -> ')
             usuario = self.encontrarUsuario(ced)
             if usuario==None:
@@ -457,10 +469,10 @@ class Tienda:
                     print('Opcion no valida')
                     continue
             else:
-                print('VENTAS DE CONTADO')
+                print('\nVENTAS DE CONTADO')
                 self.consultarVentasContado(ced)
                 os.system('pause')
-                print('VENTAS SEPARADO')
+                print('\nVENTAS SEPARADO')
                 self.consultarVentasSeparado(ced)
                 break
                
@@ -475,21 +487,23 @@ class Tienda:
                 self.generarFacturaVentaSeparado(venta)
     def generarFacturaVentaSeparado(self,ventaSeparado):
         for producto in ventaSeparado.productos:
-            print(f'Nombre del producto: {producto.nombre} Precio: {producto.valorIntrumento}')
-        print('-----------------------------------------------------')
+            print(f'Nombre del producto: {producto.nombre} | Precio: {producto.valorIntrumento}')
+        print('--------------------')
         print(f'Valor total: {ventaSeparado.totalPagar}')
         print(f'Valor abonado: {ventaSeparado.abono}')
         print(f'Valor faltante: {ventaSeparado.totalPagar-ventaSeparado.abono}')
         print('-----------------------------------------------------')
 
     def mostrarVentas(self):
-        print('VENTAS DE CONTADO: ----------------------------------------------- ')
+        print('------------------------- VENTAS DE CONTADO: ---------------------- ')
         for i in range(len(self.ventas)):
             print(f'Venta No.{i+1}')
+            print (f'Cliente: {self.ventas[i].cedulaCliente}')
             self.generarFacturaVenta(self.ventas[i])
-        print('VENTAS SEPARADO -------------------------------------------------- ')
+        print('\n----------------------- VENTAS SEPARADO --------------------------- ')
         for j in range(len(self.ventasSeparado)):
             print(f'Ventas Separado No.{j+1}')
+            print (f'Cliente: {self.ventasSeparado[j].cedulaCliente}')
             self.generarFacturaVentaSeparado(self.ventasSeparado[j])
 
     def eliminarVenta(self):
@@ -530,30 +544,36 @@ class Tienda:
                 os.system('pause')
                 break
     def pagarSeparado(self):
+        self.mostrarUsuarios()
         ced = Leer.int('Digite cedula -> ')
-        for i in range(len(self.ventasSeparado)):
-            if self.ventasSeparado[i].cedulaCliente == ced:
-                print(f'Venta separada No.{i+1}')
-                self.generarFacturaVentaSeparado(self.ventasSeparado[i])      
-        venta = Leer.int('Numero de la venta separada -> ')
-        venta -= 1
-        if venta<len(self.ventasSeparado):
-            valorAbono = Leer.float('Ingrese el valor que va abonar -> ')
-            if valorAbono<self.ventasSeparado[venta].totalPagar-self.ventasSeparado[venta].abono:
-                self.ventasSeparado[venta].abono += valorAbono
-                print(f'Valor total: {self.ventasSeparado[venta].totalPagar}')
-                print(f'Valor abonado: {self.ventasSeparado[venta].abono}')
-                print(f'Valor faltante: {self.ventasSeparado[venta].totalPagar-self.ventasSeparado[venta].abono}')
-                print('-----------------------------------------------------')
-            elif valorAbono==self.ventasSeparado[venta].totalPagar-self.ventasSeparado[venta].abono:
-                ventaNueva = self.ventasSeparado.pop(venta)
-                agregarVenta = Venta(ventaNueva.nombreCliente,ventaNueva.fecha,ventaNueva.totalPagar)
-                agregarVenta.productos = ventaNueva.productos
-                print('Se ha pagado la venta separada')
-            else:
-                print('La cantidad abonada es mayor que la faltante...')
+        validacion = self.encontrarUsuario(ced)
+        if validacion == None:
+            print('El usuario no ha sido registrado...')
         else:
-            print("Numero de venta fuera de rango... ")
+            for i in range(len(self.ventasSeparado)):
+                if self.ventasSeparado[i].cedulaCliente == ced:
+                    print(f'Venta separada No.{i+1}')
+                    self.generarFacturaVentaSeparado(self.ventasSeparado[i])      
+            venta = Leer.int('Numero de la venta separada -> ')
+            venta -= 1
+            if venta<len(self.ventasSeparado):
+                valorAbono = Leer.float('Ingrese el valor que va abonar -> ')
+                if valorAbono<self.ventasSeparado[venta].totalPagar-self.ventasSeparado[venta].abono:
+                    self.ventasSeparado[venta].abono += valorAbono
+                    print(f'Valor total: {self.ventasSeparado[venta].totalPagar}')
+                    print(f'Valor abonado: {self.ventasSeparado[venta].abono}')
+                    print(f'Valor faltante: {self.ventasSeparado[venta].totalPagar-self.ventasSeparado[venta].abono}')
+                    print('-----------------------------------------------------')
+                elif valorAbono==self.ventasSeparado[venta].totalPagar-self.ventasSeparado[venta].abono:
+                    agregarVenta = Venta(self.ventasSeparado[venta].cedulaCliente,self.ventasSeparado[venta].fecha,self.ventasSeparado[venta].totalPagar)
+                    agregarVenta.productos = self.ventasSeparado[venta].productos
+                    self.ventas.append(agregarVenta)
+                    del self.ventasSeparado[venta]
+                    print('Se ha pagado la venta separada')
+                else:
+                    print('La cantidad abonada es mayor que la faltante...')
+            else:
+                print("Numero de venta fuera de rango... ")
         
     #FUNCIONES MENÚ FINANZAS
             
@@ -577,7 +597,7 @@ class Tienda:
         total_alquileres = 0
         for alquiler in Tienda.cajaAlquileres:
             total_alquileres+=alquiler
-        print(f"Ingresos por alquileres: ${total_alquileres}")                        
+        print(f"Ingresos por alquileres: ${total_alquileres}")                     
 
 
     # def generarPrestamo(self,):
