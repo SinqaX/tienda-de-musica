@@ -9,19 +9,22 @@ def main():
     tienda.cargarDatos()
     
     def iniciar_sesion():
-        admin = Leer.string("Ingrese el nombre del Administador: ").lower()
-        contrasena = Leer.int("Ingrese la contraseña numerica: ")
+        usuario_valido = 'admin'
+        contrasena_valida = '1234'
 
-        if admin == "admin" and contrasena == 0000:
-            print("Inicio de sesión exitoso.")
-            return True
-        else:
-            os.system("cls")
-            print("Nombre de usuario o contraseña incorrectos. Inténtelo de nuevo.")
-            return False
-    if not iniciar_sesion():
-        iniciar_sesion()
-        
+        while True:
+            usuario = input("Ingrese nombre de usuario: ")
+            contrasena = input("Ingrese contraseña: ")
+
+            if usuario == usuario_valido and contrasena == contrasena_valida:
+                print("Inicio de sesión exitoso. ¡Bienvenido, {}!".format(usuario))
+                os.system("pause")
+                break
+            else:
+                print("Credenciales incorrectas. Vuelva a intentarlo.")
+
+    iniciar_sesion()
+
     def mostrar_menu_usuario():
         while True:
             try:
@@ -56,6 +59,7 @@ def main():
 
                     case 0:
                         print("Volviendo al menú principal...")
+                        tienda.guardarDatos()
                         break
 
                     case _:
@@ -98,6 +102,7 @@ def main():
 
                     case 0:
                         print("Volviendo al menú principal...")
+                        tienda.guardarDatos()
                         break
 
                     case _:
@@ -142,6 +147,7 @@ def main():
 
                     case 0:
                         print("Volviendo al menú principal...")
+                        tienda.guardarDatos()
                         break
 
                     case _:
@@ -184,6 +190,7 @@ def main():
 
                     case 0:
                         print("Volviendo al menú principal...")
+                        tienda.guardarDatos()
                         break
 
                     case _:
@@ -220,6 +227,7 @@ def main():
         
                     case 0:
                         print("Volviendo al menú principal...")
+                        tienda.guardarDatos()
                         break
                     case _:
                         print("Opción no válida. Por favor, seleccione una opción válida.")
@@ -268,7 +276,7 @@ def main():
                 case 0:
                     tienda.guardarDatos()
                     print("Saliendo del programa...")
-                    
+                    tienda.guardarDatos()
                     break
 
                 case _:
